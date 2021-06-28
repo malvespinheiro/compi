@@ -1,71 +1,25 @@
-﻿using text_Box_Mio.refactoring.bases.interfaces;
-using text_Box_Mio.refactoring.bases;
+﻿using unsj.fcefn.compiladores.compi.basis.interfaces;
+using unsj.fcefn.compiladores.compi.basis.language.token;
 
-namespace text_Box_Mio.refactoring.compiler.bases
+namespace unsj.fcefn.compiladores.compi.basis
 {
-    public abstract class AbstractParser:IParser
+    class BaseParser<TProduction> : IParser<BaseParser<TProduction>>
     {
-        AbstractProduction rootProduction;
+        BaseProduction<TProduction> rootProduction;
 
-        public AbstractParser init()
+        public BaseParser<TProduction> Compile()
         {
-            rootProduction
+            rootProduction.Execute();
+            return this;
         }
 
-        public AbstractParser compile()
+        public BaseParser<TProduction> Init(BaseScanner scanner)
         {
+            Token currentToken = null;
+            Token lookingAheadToken = new Token(1, 1);
 
-        }
-
-
-        static void Program()
-        {
-            Check(Token.CLASS);
-            Check(Token.IDENT);
-            Symbol prog = Tab.Insert(Symbol.Kinds.Prog, token.str, Tab.noType);
-            Code.CreateMetadata(prog);
-            Tab.OpenScope(prog);
-            while (la != Token.LBRACE && la != Token.EOF)
-            {
-                switch (la)
-                {
-                    case Token.CONST:
-                        {
-                            ConstDecl
-                               ();
-                            break;
-                        }
-                    case Token.IDENT:
-                        {
-                            VardDecl(Symbol.Kinds.Global);
-                            break;
-                        }
-                    case Token.CLASS:
-                        {
-                            ClassDecl();
-                            break;
-                        }
-                    default:
-                        {
-                            token = laToken;
-                            Errors.Error("Se esperaba Const, Tipo, Class");
-                            break;
-                        }
-                }
-            }
-
-            Check(Token.LBRACE);
-            while ((la == Token.IDENT || la == Token.VOID) && la != Token.EOF)
-            {
-                MethodDecl(methodDeclsOpc);
-            }
-
-            Check(Token.RBRACE);
-
-
-            prog.locals = Tab.topScope.locals;
-
-            Tab.CloseScope();
+            this.rootProduction.Init(ref scanner, ref currentToken, ref lookingAheadToken);
+            return this;
         }
     }
 }

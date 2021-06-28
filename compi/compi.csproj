@@ -63,6 +63,26 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="basis\BaseParser.cs" />
+    <Compile Include="basis\BaseProduction.cs" />
+    <Compile Include="basis\BaseScanner.cs" />
+    <Compile Include="zz\grammar\productions\ConstDecl.cs" />
+    <Compile Include="zz\grammar\productions\Program - Copy %283%29.cs" />
+    <Compile Include="zz\grammar\productions\Program - Copy %284%29.cs" />
+    <Compile Include="zz\grammar\productions\Program - Copy.cs" />
+    <Compile Include="zz\language\Keywords.cs" />
+    <Compile Include="zz\Scanner.cs" />
+    <Compile Include="basis\exceptions\ErrorMessages.cs" />
+    <Compile Include="basis\exceptions\ParserException.cs" />
+    <Compile Include="basis\exceptions\ScannerException.cs" />
+    <Compile Include="zz\grammar\productions\Program.cs" />
+    <Compile Include="basis\interfaces\IKeywords.cs" />
+    <Compile Include="basis\interfaces\IParser.cs" />
+    <Compile Include="basis\interfaces\IProduction.cs" />
+    <Compile Include="basis\interfaces\IScanner.cs" />
+    <Compile Include="basis\language\BaseKeywords.cs" />
+    <Compile Include="basis\language\token\Token.cs" />
+    <Compile Include="basis\language\token\TokenEnum.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -94,5 +114,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

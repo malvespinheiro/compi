@@ -2,14 +2,14 @@
 
 namespace unsj.fcefn.compiladores.compi.basis.interfaces
 {
-    interface IProduction
+    interface IProduction<TProduction>
     {
-        IProduction Execute();
+        TProduction Execute();
 
-        IProduction Init(ref IScanner scanner, ref Token currentToken, ref Token lookingAheadToken);
+        void Init(ref BaseScanner scanner, ref Token currentToken, ref Token lookingAheadToken);
 
         void Scan();
 
-        void Check(TokenKind expected);
+        void Check(TokenEnum expected);
     }
 }

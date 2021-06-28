@@ -1,8 +1,7 @@
 ﻿namespace unsj.fcefn.compiladores.compi.basis.interfaces
 {
-    interface IParser
+    interface IParser<TParserCompileResponse>
     {
-        IParser init();
-        IParser compile();
+        TParserCompileResponse Compile();
     }
 }

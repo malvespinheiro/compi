@@ -5,7 +5,7 @@ namespace unsj.fcefn.compiladores.compi.basis.interfaces
 {
     interface IScanner
     {
-        void Init(TextReader input);
+        void Init(string input);
 
         void NextCharacter();
 

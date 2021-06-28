@@ -4,29 +4,25 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.basis
 {
-    class BaseProduction:IProduction
+    abstract class BaseProduction<TProduction> : IProduction<TProduction>
     {
-        private string description;
-        private Token currentToken;
-        private Token lookingAheadToken;
-        private IScanner scanner;
+        protected string description;
+        protected Token currentToken;
+        protected Token lookingAheadToken;
+        protected BaseScanner scanner;
 
         public string Description { get => description; set => description = value; }
 
-        public IProduction Execute()
-        {
-            return null;
-        }
+        public abstract TProduction Execute();
 
-        public IProduction Init(ref IScanner scanner, ref Token currentToken, ref Token lookingAheadToken)
+        public void Init(ref BaseScanner scanner, ref Token currentToken, ref Token lookingAheadToken)
         {
             this.currentToken = currentToken;
             this.lookingAheadToken = lookingAheadToken;
             this.scanner = scanner;
-            return null;
         }
 
-        public void Check(TokenKind expected)
+        public void Check(TokenEnum expected)
         {
             if (lookingAheadToken.Kind.Equals(expected))
             {
