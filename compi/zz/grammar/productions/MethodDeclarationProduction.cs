@@ -3,9 +3,9 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class ConstDecl : BaseProduction<ConstDecl>
+    class MethodDeclarationProduction : BaseProduction<MethodDeclarationProduction>
     {
-        public override ConstDecl Execute()
+        public override MethodDeclarationProduction Execute()
         {
             Check(TokenEnum.CONST); 
             Struct type;
@@ -43,6 +43,11 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             }
             Check(TokenEnum.SEMICOLON);
             return this;
+        }
+
+        public override void InitProductions()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
