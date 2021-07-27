@@ -8,7 +8,7 @@ namespace unsj.fcefn.compiladores.compi.basis.exceptions
 {
     class ErrorMessages
     {
-        public static string wrongCharacter= "Token inválido debido a caracter: ";
+        public static string wrongCharacter = "Token inválido debido a caracter: ";
         public static string wrongFormatNumber = "El formato del caracter no es válido: ";
         public static string wrongExpectedToken = "Se esperaba: ";
 

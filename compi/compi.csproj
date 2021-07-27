@@ -63,19 +63,26 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="basis\BaseCodeGenerator.cs" />
     <Compile Include="basis\BaseParser.cs" />
     <Compile Include="basis\BaseProduction.cs" />
     <Compile Include="basis\BaseScanner.cs" />
-    <Compile Include="zz\grammar\productions\ConstDecl.cs" />
-    <Compile Include="zz\grammar\productions\Program - Copy %283%29.cs" />
-    <Compile Include="zz\grammar\productions\Program - Copy %284%29.cs" />
-    <Compile Include="zz\grammar\productions\Program - Copy.cs" />
+    <Compile Include="basis\symbolTable\BaseSymbolTable.cs" />
+    <Compile Include="basis\symbolTable\BaseScope.cs" />
+    <Compile Include="basis\symbolTable\BaseStruct.cs" />
+    <Compile Include="basis\symbolTable\StructKind.cs" />
+    <Compile Include="basis\symbolTable\SymbolKind.cs" />
+    <Compile Include="basis\symbolTable\BaseSymbol.cs" />
+    <Compile Include="zz\grammar\productions\ClassDeclarationProduction.cs" />
+    <Compile Include="zz\grammar\productions\VariableDeclarationProduction.cs" />
+    <Compile Include="zz\grammar\productions\MethodDeclarationProduction.cs" />
+    <Compile Include="zz\grammar\productions\ConstantDeclarationProduction.cs" />
     <Compile Include="zz\language\Keywords.cs" />
     <Compile Include="zz\Scanner.cs" />
     <Compile Include="basis\exceptions\ErrorMessages.cs" />
     <Compile Include="basis\exceptions\ParserException.cs" />
     <Compile Include="basis\exceptions\ScannerException.cs" />
-    <Compile Include="zz\grammar\productions\Program.cs" />
+    <Compile Include="zz\grammar\productions\ProgramProduction.cs" />
     <Compile Include="basis\interfaces\IKeywords.cs" />
     <Compile Include="basis\interfaces\IParser.cs" />
     <Compile Include="basis\interfaces\IProduction.cs" />

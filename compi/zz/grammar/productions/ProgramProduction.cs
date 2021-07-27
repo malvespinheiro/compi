@@ -64,7 +64,6 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 
             Check(TokenEnum.RBRACE);
 
-
             progamSymbol.Locals = symbolTable.TopScope.Locals;
 
             symbolTable.CloseScope();

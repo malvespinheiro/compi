@@ -12,6 +12,7 @@ namespace unsj.fcefn.compiladores.compi.basis
         protected Token lookingAheadToken;
         protected BaseScanner scanner;
         protected BaseSymbolTable symbolTable;
+        protected ErrorHandler errorHandler;
 
         public string Description { get => description; set => description = value; }
 
@@ -19,13 +20,19 @@ namespace unsj.fcefn.compiladores.compi.basis
 
         public abstract void InitProductions();
 
-        public void Init(ref BaseScanner scanner, ref BaseSymbolTable symbolTable, ref Token currentToken, ref Token lookingAheadToken)
+        public void Init(
+            ref BaseScanner scanner, 
+            ref BaseSymbolTable symbolTable, 
+            ref Token currentToken, 
+            ref Token lookingAheadToken,
+            ref ErrorHandler errorHandler)
         {
             this.currentToken = currentToken;
             this.lookingAheadToken = lookingAheadToken;
             this.scanner = scanner;
             this.symbolTable = symbolTable;
             this.InitProductions();
+            this.errorHandler = errorHandler;
         }
 
         public void Check(TokenEnum expected)
@@ -36,7 +43,7 @@ namespace unsj.fcefn.compiladores.compi.basis
             }
             else
             {
-                throw new ParserException(ErrorMessages.GetMessage(expected.ToString(), ErrorMessages.wrongExpectedToken));
+                errorHandler.ThrowParserError(expected.ToString(), ErrorMessages.wrongExpectedToken);
             }
         }
 
@@ -44,6 +51,11 @@ namespace unsj.fcefn.compiladores.compi.basis
         {
             currentToken = lookingAheadToken;
             lookingAheadToken = scanner.Next();
+        }
+
+        public bool TypeCheking()
+        {
+
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
+using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.interfaces;
 using unsj.fcefn.compiladores.compi.basis.language;
 using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.basis
 {
-    abstract class BaseScanner:IScanner
+    abstract class BaseScanner : IScanner
     {
         protected const char EOF = '\u0080';
         protected const char CR = '\r';
@@ -18,9 +19,11 @@ namespace unsj.fcefn.compiladores.compi.basis
         protected char currentCharacter;
         protected int lineNumber, columnNumber;
 
-        protected  BaseKeywords keywords;
+        protected BaseKeywords keywords;
 
-        public void Init(string input)
+        protected ErrorHandler errorHandler;
+
+        public void Init(string input, ErrorHandler errorHandler)
         {
             this.input = new StringReader(input);
             this.output = Console.Out;
@@ -28,6 +31,7 @@ namespace unsj.fcefn.compiladores.compi.basis
             this.columnNumber = 0;
             this.keywords.Init();
             this.NextCharacter();
+            this.errorHandler = errorHandler;
         }
 
         public void NextCharacter()
