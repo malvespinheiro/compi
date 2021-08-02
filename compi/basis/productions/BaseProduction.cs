@@ -18,9 +18,7 @@ namespace unsj.fcefn.compiladores.compi.basis
 
         public abstract TProduction Execute();
 
-        public abstract void InitProductions();
-
-        public void Init(
+        public virtual void Init(
             ref BaseScanner scanner, 
             ref BaseSymbolTable symbolTable, 
             ref Token currentToken, 
@@ -31,7 +29,6 @@ namespace unsj.fcefn.compiladores.compi.basis
             this.lookingAheadToken = lookingAheadToken;
             this.scanner = scanner;
             this.symbolTable = symbolTable;
-            this.InitProductions();
             this.errorHandler = errorHandler;
         }
 
@@ -43,7 +40,7 @@ namespace unsj.fcefn.compiladores.compi.basis
             }
             else
             {
-                errorHandler.ThrowParserError(expected.ToString(), ErrorMessages.wrongExpectedToken);
+                errorHandler.ThrowParserError(ErrorMessages.wrongExpectedToken + expected.ToString());
             }
         }
 
@@ -51,11 +48,6 @@ namespace unsj.fcefn.compiladores.compi.basis
         {
             currentToken = lookingAheadToken;
             lookingAheadToken = scanner.Next();
-        }
-
-        public bool TypeCheking()
-        {
-
         }
     }
 }

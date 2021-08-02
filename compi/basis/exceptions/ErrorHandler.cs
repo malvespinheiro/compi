@@ -4,14 +4,19 @@ namespace unsj.fcefn.compiladores.compi.basis.exceptions
 {
     class ErrorHandler
     {
-        public void ThrowParserError(String expected, String messasgeError)
+        public void ThrowParserError(String messasgeError)
         {
-            throw new ParserException(ErrorMessages.GetMessage(expected, messasgeError));
+            throw new ParserException(messasgeError);
         }
 
-        public void ThrowScannerError(String currentCharacter, String messasgeError)
+        public void ThrowScannerError(String messasgeError)
         {
-            throw new ScannerException(ErrorMessages.GetMessage(currentCharacter, messasgeError));
+            throw new ScannerException(messasgeError);
+        }
+
+        internal void ThrowParserError(object invalidConstantType)
+        {
+            throw new NotImplementedException();
         }
     }
 }

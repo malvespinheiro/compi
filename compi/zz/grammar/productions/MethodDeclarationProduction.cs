@@ -1,53 +1,85 @@
-﻿using unsj.fcefn.compiladores.compi.basis;
+﻿using compi.basis.symbolTable;
+using unsj.fcefn.compiladores.compi.basis;
+using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class MethodDeclarationProduction : BaseProduction<MethodDeclarationProduction>
+    class MethodDeclarationProduction : CompoundProduction<MethodDeclarationProduction>
     {
+
+        private readonly TypeProduction typeProduction = new TypeProduction();
+        private readonly VariableDeclarationProduction variableDeclarationProduction = new VariableDeclarationProduction();
+        private readonly FormParsProduction formParsProduction= new FormParsProduction();
+        private readonly BlockProduction blockProduction= new BlockProduction();
+
+        BaseSymbol currentMethod;
         public override MethodDeclarationProduction Execute()
         {
-            Check(TokenEnum.CONST); 
-            Struct type;
-            Type(out type);
-            if (type != Tab.intType && type != Tab.charType)
+            BaseStruct type = new BaseStruct(StructKind.None);
+            if (lookingAheadToken.Kind == TokenEnum.VOID || lookingAheadToken.Kind == TokenEnum.IDENT)
             {
-                Errors.Error("el tipo de una def de const sólo puede ser int o char");
+                if (lookingAheadToken.Kind == TokenEnum.VOID)
+                {
+                    Check(TokenEnum.VOID);
+                    type = symbolTable.noType;
+                }
+                else
+                {
+                    if (lookingAheadToken.Kind == TokenEnum.IDENT)
+                    {
+                        type = typeProduction.Execute().Type;
+                    }
+                }
+                    
+                Check(TokenEnum.IDENT);
+                currentMethod = symbolTable.Insert(SymbolKind.Meth, currentToken.StringRepresentation, type);
+                symbolTable.OpenScope(currentMethod);
+                Check(TokenEnum.LPAR);
+                if (lookingAheadToken.Kind == TokenEnum.IDENT)
+                {
+                    formParsProduction.Execute();
+                    Check(TokenEnum.RPAR);
+                }
+                else
+                {
+                    Check(TokenEnum.RPAR);
+                }
+
+                // Code.CreateMetadata(currentMethod); 
+                while (lookingAheadToken.Kind != TokenEnum.LBRACE && lookingAheadToken.Kind != TokenEnum.EOF)
+                {
+                    if (lookingAheadToken.Kind == TokenEnum.IDENT)
+                    {
+                        variableDeclarationProduction.SetAttributes(SymbolKind.Local).Execute();
+                    }
+                    else
+                    {
+                        errorHandler.ThrowParserError(ErrorMessages.variablesDeclarationExpected);
+                    }
+                }
+
+                blockProduction.Execute(); 
+                //TODO: Entender para que sirven estas asignaciones
+                // currentMethod.nArgs = symbolTable.TopScope.nArgs;
+                // currentMethod.nLocs = symbolTable.TopScope.nLocs;
+                // currentMethod.locals = symbolTable.TopScope.locals;
+                symbolTable.CloseScope();
+
+                // Code.il.Emit(Code.RET);  //si lo saco se clava en el InvokeMember
+                // Parser.nroDeInstrCorriente++;
+                // Parser.cil[Parser.nroDeInstrCorriente].accionInstr = Parser.AccionInstr.ret;
+                // Code.cargaInstr("ret");
             }
-            Check(TokenEnum.IDENT);
-            Symbol constant = Tab.Insert(Symbol.Kinds.Const, currentToken.StringRepresentation, type);
-            Check(TokenEnum.ASSIGN);  //const
-            switch (lookingAheadToken.Kind)
-            {
-                case TokenEnum.NUMBER:
-                    {
-                        if (type != Tab.intType)
-                            Errors.Error("type debe ser int");
-                        Check(TokenEnum.NUMBER);
-                        constant.val = currentToken.NumericalRepresentation;
-                        break;
-                    }
-                case TokenEnum.CHARCONST:
-                    {
-                        if (type != Tab.charType)
-                            Errors.Error("type debe ser char");
-                        Check(TokenEnum.CHARCONST);
-                        constant.val = currentToken.NumericalRepresentation;
-                        break;
-                    }
-                default:
-                    {
-                        Errors.Error("def de const erronea");
-                        break;
-                    }
-            }
-            Check(TokenEnum.SEMICOLON);
             return this;
         }
 
         public override void InitProductions()
         {
-            throw new System.NotImplementedException();
+            typeProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            variableDeclarationProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            formParsProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            blockProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }
 }

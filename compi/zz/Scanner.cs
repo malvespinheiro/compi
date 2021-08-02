@@ -122,7 +122,7 @@ namespace unsj.fcefn.compiladores.compi.zz
                         else
                         {
                             token.Kind = TokenEnum.NONE;
-                            errorHandler.ThrowScannerError(currentCharacter.ToString(), ErrorMessages.wrongCharacter);
+                            errorHandler.ThrowScannerError(ErrorMessages.wrongCharacter + currentCharacter.ToString());
                         };
                         break;
                     case '+':
@@ -232,7 +232,7 @@ namespace unsj.fcefn.compiladores.compi.zz
                                     token.NumericalRepresentation = '\\';
                                     break;
                                 default:
-                                    errorHandler.ThrowScannerError(currentCharacter.ToString(), ErrorMessages.wrongCharacter);
+                                    errorHandler.ThrowScannerError(ErrorMessages.wrongCharacter + currentCharacter.ToString());
                                     break;
                             }
                         }
@@ -243,14 +243,14 @@ namespace unsj.fcefn.compiladores.compi.zz
                                 ((currentCharacter < 'a') && (currentCharacter > 'z')) ||
                                 (currentCharacter != '\''))
                             {
-                                errorHandler.ThrowScannerError(currentCharacter.ToString(), ErrorMessages.wrongCharacter);
+                                errorHandler.ThrowScannerError(ErrorMessages.wrongCharacter + currentCharacter.ToString());
                             }
 
                             NextCharacter();
 
                             if (currentCharacter != '\'')
                             {
-                                errorHandler.ThrowScannerError(currentCharacter.ToString(), ErrorMessages.wrongCharacter);
+                                errorHandler.ThrowScannerError(ErrorMessages.wrongCharacter + currentCharacter.ToString());
                             }
 
 
@@ -306,7 +306,7 @@ namespace unsj.fcefn.compiladores.compi.zz
 
                     default:
                         {
-                            errorHandler.ThrowScannerError(currentCharacter.ToString(), ErrorMessages.wrongCharacter);
+                            errorHandler.ThrowScannerError(ErrorMessages.wrongCharacter + currentCharacter.ToString());
                             break;
                         }
                 }
@@ -384,7 +384,7 @@ namespace unsj.fcefn.compiladores.compi.zz
                 }
                 catch (Exception)
                 {
-                    throw new ScannerException(ErrorMessages.GetMessage(currentCharacter.ToString(), ErrorMessages.wrongFormatNumber));
+                    throw new ScannerException(ErrorMessages.wrongFormatNumber + currentCharacter.ToString());
                 }
         }
     }

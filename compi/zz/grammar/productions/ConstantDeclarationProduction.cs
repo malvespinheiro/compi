@@ -1,47 +1,52 @@
 ﻿using compi.basis.symbolTable;
 using unsj.fcefn.compiladores.compi.basis;
+using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class ConstantDeclarationProduction : BaseProduction<ConstantDeclarationProduction>
+    class ConstantDeclarationProduction : CompoundProduction<ConstantDeclarationProduction>
     {
+
+        private readonly TypeProduction typeProduction = new TypeProduction();
         public override ConstantDeclarationProduction Execute()
         {
-            Check(TokenEnum.CONST); 
-            BaseStruct type;
-            Type(out type);
+            Check(TokenEnum.CONST);
+            BaseStruct type = typeProduction.Execute().Type;
 
-            if (type != Tab.intType && type != Tab.charType)
+            if (!symbolTable.IsValidConstantType(type))
             {
-                Errors.Error("el tipo de una def de const sólo puede ser int o char");
+                errorHandler.ThrowParserError(ErrorMessages.invalidConstantType);
             }
 
             Check(TokenEnum.IDENT);
             BaseSymbol constant = symbolTable.Insert(SymbolKind.Const, currentToken.StringRepresentation, type);
-            Check(TokenEnum.ASSIGN);  //const
+            Check(TokenEnum.ASSIGN);
             switch (lookingAheadToken.Kind)
             {
                 case TokenEnum.NUMBER:
                     {
-                        if (type != Tab.intType)
-                            Errors.Error("type debe ser int");
-
+                        if (!symbolTable.IsValidIntType(type))
+                        {
+                            errorHandler.ThrowParserError(ErrorMessages.intTypeExpected);
+                        }
                         Check(TokenEnum.NUMBER);
                         constant.val = currentToken.NumericalRepresentation;
                         break;
                     }
                 case TokenEnum.CHARCONST:
                     {
-                        if (type != Tab.charType)
-                            Errors.Error("type debe ser char");
+                        if (!symbolTable.IsValidCharType(type))
+                        {
+                            errorHandler.ThrowParserError(ErrorMessages.charTypeExpected);
+                        }
                         Check(TokenEnum.CHARCONST);
                         constant.val = currentToken.NumericalRepresentation;
                         break;
                     }
                 default:
                     {
-                        Errors.Error("def de const erronea");
+                        errorHandler.ThrowParserError(ErrorMessages.wrongConstantDefinition);
                         break;
                     }
             }
@@ -51,7 +56,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 
         public override void InitProductions()
         {
-            throw new System.NotImplementedException();
+            this.typeProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }
 }

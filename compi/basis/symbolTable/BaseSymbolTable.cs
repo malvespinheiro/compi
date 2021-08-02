@@ -105,5 +105,19 @@
                     return sym;
             return noSym;
         }
+
+        public bool IsValidConstantType(BaseStruct type) {
+            return type.kind == StructKind.Char || type.kind == StructKind.Int;
+        }
+
+        public bool IsValidIntType(BaseStruct type)
+        {
+            return type.kind == StructKind.Int;
+        }
+
+        public bool IsValidCharType(BaseStruct type)
+        {
+            return type.kind == StructKind.Char;
+        }
     }
 }

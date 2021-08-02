@@ -1,10 +1,11 @@
 ﻿using compi.basis.symbolTable;
 using unsj.fcefn.compiladores.compi.basis;
+using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class ProgramProduction : BaseProduction<ProgramProduction>
+    class ProgramProduction : CompoundProduction<ProgramProduction>
     {
         private readonly ConstantDeclarationProduction constantDeclarationProduction = new ConstantDeclarationProduction();
         private readonly ClassDeclarationProduction classDeclarationProduction = new ClassDeclarationProduction();
@@ -13,10 +14,10 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 
         public override void InitProductions()
         {
-            this.constantDeclarationProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken);
-            this.classDeclarationProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken);
-            this.variableDeclarationProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken);
-            this.methodDeclarationProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken);
+            this.constantDeclarationProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            this.classDeclarationProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            this.variableDeclarationProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            this.methodDeclarationProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
 
         }
         public override ProgramProduction Execute()
@@ -39,7 +40,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
                         }
                     case TokenEnum.IDENT:
                         {
-                            variableDeclarationProduction.Execute();
+                            variableDeclarationProduction.SetAttributes(SymbolKind.Global).Execute();
                             break;
                         }
                     case TokenEnum.CLASS:
@@ -49,8 +50,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
                         }
                     default:
                         {
-                            Scan();
-                            //TODO: Error de parseo: Se esperaba Const, tipo, class
+                            errorHandler.ThrowParserError(ErrorMessages.classConstantOrVariableExpected);
                             break;
                         }
                 }

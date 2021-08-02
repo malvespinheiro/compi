@@ -67,6 +67,7 @@
     <Compile Include="basis\BaseParser.cs" />
     <Compile Include="basis\BaseProduction.cs" />
     <Compile Include="basis\BaseScanner.cs" />
+    <Compile Include="basis\exceptions\ErrorHandler.cs" />
     <Compile Include="basis\symbolTable\BaseSymbolTable.cs" />
     <Compile Include="basis\symbolTable\BaseScope.cs" />
     <Compile Include="basis\symbolTable\BaseStruct.cs" />

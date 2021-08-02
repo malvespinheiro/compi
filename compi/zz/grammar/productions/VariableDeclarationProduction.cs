@@ -1,53 +1,37 @@
-﻿using unsj.fcefn.compiladores.compi.basis;
+﻿using compi.basis.symbolTable;
+using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class VariableDeclarationProduction : BaseProduction<VariableDeclarationProduction>
+    class VariableDeclarationProduction : CompoundProduction<VariableDeclarationProduction>
     {
+        private readonly TypeProduction typeProduction = new TypeProduction();
+        private readonly IdentifiersOpcProduction identifiersOpcProduction  = new IdentifiersOpcProduction();
+
+        private SymbolKind symbolKind;
+        public VariableDeclarationProduction SetAttributes(SymbolKind symbolKind)
+        {
+            this.symbolKind = symbolKind;
+            return this;
+        }
+
         public override VariableDeclarationProduction Execute()
         {
-            Check(TokenEnum.CONST); 
-            Struct type;
-            Type(out type);
-            if (type != Tab.intType && type != Tab.charType)
-            {
-                Errors.Error("el tipo de una def de const sólo puede ser int o char");
-            }
+            BaseStruct type = typeProduction.Execute().Type;
             Check(TokenEnum.IDENT);
-            Symbol constant = Tab.Insert(Symbol.Kinds.Const, currentToken.StringRepresentation, type);
-            Check(TokenEnum.ASSIGN);  //const
-            switch (lookingAheadToken.Kind)
-            {
-                case TokenEnum.NUMBER:
-                    {
-                        if (type != Tab.intType)
-                            Errors.Error("type debe ser int");
-                        Check(TokenEnum.NUMBER);
-                        constant.val = currentToken.NumericalRepresentation;
-                        break;
-                    }
-                case TokenEnum.CHARCONST:
-                    {
-                        if (type != Tab.charType)
-                            Errors.Error("type debe ser char");
-                        Check(TokenEnum.CHARCONST);
-                        constant.val = currentToken.NumericalRepresentation;
-                        break;
-                    }
-                default:
-                    {
-                        Errors.Error("def de const erronea");
-                        break;
-                    }
-            }
+            BaseSymbol variable = symbolTable.Insert(symbolKind, currentToken.StringRepresentation, type);
+            //Code.CreateMetadata(variable); 
+            //TODO: Ver como hacer para que tome los atributos de entrada a la produccion
+            identifiersOpcProduction.SetAttributes(type, symbolKind).Execute();
             Check(TokenEnum.SEMICOLON);
             return this;
         }
 
         public override void InitProductions()
         {
-            throw new System.NotImplementedException();
+            typeProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            identifiersOpcProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }
 }

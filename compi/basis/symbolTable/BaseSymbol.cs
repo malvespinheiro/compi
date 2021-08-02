@@ -2,16 +2,15 @@
 {
     class BaseSymbol
     {
-        public SymbolKind kind;
         public string name;
-        public BaseStruct type;
-        public BaseSymbol next;
         public int val;
         public int adr;
         public int nArgs;
         public int nLocs;
-
-        private BaseSymbol locals;
+        public SymbolKind kind;
+        public BaseStruct type;
+        public BaseSymbol next;
+        public BaseSymbol locals;
         internal BaseSymbol Locals { get => locals; set => locals = value; }
 
         public BaseSymbol(SymbolKind kind, string name, BaseStruct type)
