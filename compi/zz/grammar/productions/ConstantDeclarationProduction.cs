@@ -9,54 +9,29 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
 
         private readonly TypeProduction typeProduction = new TypeProduction();
+        private readonly NumberOrCharConstantProduction numberOrCharConstantProduction = new NumberOrCharConstantProduction();
         public override ConstantDeclarationProduction Execute()
         {
             Check(TokenEnum.CONST);
-            BaseStruct type = typeProduction.Execute().Type;
 
+            BaseStruct type = typeProduction.Execute().Type;
             if (!symbolTable.IsValidConstantType(type))
             {
                 errorHandler.ThrowParserError(ErrorMessages.invalidConstantType);
             }
+            BaseSymbol constant = symbolTable.Insert(SymbolKind.Const, currentToken.StringRepresentation, type);
 
             Check(TokenEnum.IDENT);
-            BaseSymbol constant = symbolTable.Insert(SymbolKind.Const, currentToken.StringRepresentation, type);
             Check(TokenEnum.ASSIGN);
-            switch (lookingAheadToken.Kind)
-            {
-                case TokenEnum.NUMBER:
-                    {
-                        if (!symbolTable.IsValidIntType(type))
-                        {
-                            errorHandler.ThrowParserError(ErrorMessages.intTypeExpected);
-                        }
-                        Check(TokenEnum.NUMBER);
-                        constant.val = currentToken.NumericalRepresentation;
-                        break;
-                    }
-                case TokenEnum.CHARCONST:
-                    {
-                        if (!symbolTable.IsValidCharType(type))
-                        {
-                            errorHandler.ThrowParserError(ErrorMessages.charTypeExpected);
-                        }
-                        Check(TokenEnum.CHARCONST);
-                        constant.val = currentToken.NumericalRepresentation;
-                        break;
-                    }
-                default:
-                    {
-                        errorHandler.ThrowParserError(ErrorMessages.wrongConstantDefinition);
-                        break;
-                    }
-            }
+            numberOrCharConstantProduction.SetAttributes(type, constant).Execute();
             Check(TokenEnum.SEMICOLON);
             return this;
         }
 
         public override void InitProductions()
         {
-            this.typeProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            typeProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            numberOrCharConstantProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }
 }
