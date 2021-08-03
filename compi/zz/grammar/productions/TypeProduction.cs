@@ -13,23 +13,17 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 
         public override TypeProduction Execute()
         {
-            if (lookingAheadToken.Kind != TokenEnum.IDENT)
+            Check(TokenEnum.IDENT);
+            BaseSymbol typeSymbol = symbolTable.Find(currentToken.StringRepresentation);
+            if (typeSymbol == null)
             {
                 errorHandler.ThrowParserError(ErrorMessages.typeExpected);
             }
             else
             {
-                Check(TokenEnum.IDENT);
-                BaseSymbol typeSymbol = symbolTable.Find(currentToken.StringRepresentation);
-                if (typeSymbol == null)
-                {
-                    errorHandler.ThrowParserError(ErrorMessages.typeExpected);
-                }
-                else
-                {
-                    type = typeSymbol.type;
-                };
-            }
+                type = typeSymbol.type;
+            };
+
             return this;
         }
     }

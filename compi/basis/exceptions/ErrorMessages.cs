@@ -13,6 +13,7 @@
         public static readonly string wrongConstantDefinition = "La definición de constante es inválida.";
         public static readonly string variablesDeclarationExpected = "Se esperaba la declaracion de una variable.";
         public static readonly string statementExpected = "Se esperaba una sentencia.";
-        public static readonly string typeOrVoidExpected = "Se esperaba Type o void";
+        public static readonly string typeOrVoidExpected = "Se esperaba Type o void.";
+        public static readonly string indentifierExpected = "Se esperaba un identificador.";
     }
 }

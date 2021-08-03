@@ -65,7 +65,8 @@
     </Compile>
     <Compile Include="basis\BaseCodeGenerator.cs" />
     <Compile Include="basis\BaseParser.cs" />
-    <Compile Include="basis\BaseProduction.cs" />
+    <Compile Include="basis\productions\CompoundProduction.cs" />
+    <Compile Include="basis\productions\BaseProduction.cs" />
     <Compile Include="basis\BaseScanner.cs" />
     <Compile Include="basis\exceptions\ErrorHandler.cs" />
     <Compile Include="basis\symbolTable\BaseSymbolTable.cs" />
@@ -74,6 +75,16 @@
     <Compile Include="basis\symbolTable\StructKind.cs" />
     <Compile Include="basis\symbolTable\SymbolKind.cs" />
     <Compile Include="basis\symbolTable\BaseSymbol.cs" />
+    <Compile Include="zz\grammar\productions\NumberOrCharConstantProduction.cs" />
+    <Compile Include="zz\grammar\productions\TypeOrVoidProduction.cs" />
+    <Compile Include="zz\grammar\productions\PosibleMethodDeclarationProduction.cs" />
+    <Compile Include="zz\grammar\productions\DeclarationProduction.cs" />
+    <Compile Include="zz\grammar\productions\PosibleDeclarationProduction.cs" />
+    <Compile Include="zz\grammar\productions\StatementProduction.cs" />
+    <Compile Include="zz\grammar\productions\BlockProduction.cs" />
+    <Compile Include="zz\grammar\productions\PosibleIdentifiersProduction.cs" />
+    <Compile Include="zz\grammar\productions\FormParsProduction.cs" />
+    <Compile Include="zz\grammar\productions\TypeProduction.cs" />
     <Compile Include="zz\grammar\productions\ClassDeclarationProduction.cs" />
     <Compile Include="zz\grammar\productions\VariableDeclarationProduction.cs" />
     <Compile Include="zz\grammar\productions\MethodDeclarationProduction.cs" />

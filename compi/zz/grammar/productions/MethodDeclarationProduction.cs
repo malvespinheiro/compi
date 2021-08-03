@@ -9,8 +9,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         private readonly TypeOrVoidProduction typeOrVoidProduction = new TypeOrVoidProduction();
         private readonly VariableDeclarationProduction variableDeclarationProduction = new VariableDeclarationProduction();
-        private readonly FormParsProduction formParsProduction= new FormParsProduction();
-        private readonly BlockProduction blockProduction= new BlockProduction();
+        private readonly ParamsProduction paramsProduction = new ParamsProduction();
+        private readonly BlockProduction blockProduction = new BlockProduction();
 
         BaseSymbol currentMethod;
         public override MethodDeclarationProduction Execute()
@@ -26,13 +26,10 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 
             if (lookingAheadToken.Kind == TokenEnum.IDENT)
             {
-                formParsProduction.Execute();
-                Check(TokenEnum.RPAR);
+                paramsProduction.Execute();
             }
-            else
-            {
-                Check(TokenEnum.RPAR);
-            }
+
+            Check(TokenEnum.RPAR);
 
             while (lookingAheadToken.Kind != TokenEnum.LBRACE && lookingAheadToken.Kind != TokenEnum.EOF)
             {
@@ -57,7 +54,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         {
             typeOrVoidProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             variableDeclarationProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-            formParsProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            paramsProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             blockProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }
