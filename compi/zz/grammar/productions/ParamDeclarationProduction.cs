@@ -5,14 +5,14 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class FormParamsProduction : CompoundProduction<FormParamsProduction>
+    class ParamDeclarationProduction : CompoundProduction<ParamDeclarationProduction>
     {
         private readonly TypeProduction typeProduction = new TypeProduction();
         private readonly PosibleCommaTypeIdentifiersProduction posibleCommaTypeIdentifiersProduction = new PosibleCommaTypeIdentifiersProduction();
 
         private SymbolKind symbolKind;
 
-        public FormParamsProduction SetAttributes(SymbolKind symbolKind)
+        public ParamDeclarationProduction SetAttributes(SymbolKind symbolKind)
         {
             this.symbolKind = symbolKind;
             return this;
@@ -23,11 +23,10 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             this.typeProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
 
         }
-        public override FormParamsProduction Execute()
+        public override ParamDeclarationProduction Execute()
         {
             BaseStruct type = typeProduction.Execute().Type;
             Check(TokenEnum.IDENT);
-            posibleCommaTypeIdentifiersProduction.Execute();
             return this;
         }
     }

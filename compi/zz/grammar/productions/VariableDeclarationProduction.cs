@@ -6,7 +6,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
     class VariableDeclarationProduction : CompoundProduction<VariableDeclarationProduction>
     {
-        private readonly TypeProduction typeProduction = new TypeProduction();
+        private readonly TypedIdentifierProduction typedIdentifierProduction = new TypedIdentifierProduction();
         private readonly PosibleIdentifiersProduction posibleIdentifiersProduction = new PosibleIdentifiersProduction();
 
         private SymbolKind symbolKind;
@@ -18,10 +18,10 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 
         public override VariableDeclarationProduction Execute()
         {
-            BaseStruct type = typeProduction.Execute().Type;
+            BaseStruct type = typedIdentifierProduction.Execute().Type;
+
             BaseSymbol variable = symbolTable.Insert(symbolKind, currentToken.StringRepresentation, type);
 
-            Check(TokenEnum.IDENT);
             posibleIdentifiersProduction.SetAttributes(type, symbolKind).Execute();
             Check(TokenEnum.SEMICOLON);
 
@@ -30,7 +30,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 
         public override void InitProductions()
         {
-            typeProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            typedIdentifierProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             posibleIdentifiersProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }

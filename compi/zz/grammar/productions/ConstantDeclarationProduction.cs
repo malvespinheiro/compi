@@ -8,20 +8,18 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class ConstantDeclarationProduction : CompoundProduction<ConstantDeclarationProduction>
     {
 
-        private readonly TypeProduction typeProduction = new TypeProduction();
+        private readonly TypedIdentifierProduction typedIdentifierProduction = new TypedIdentifierProduction();
         private readonly NumberOrCharConstantProduction numberOrCharConstantProduction = new NumberOrCharConstantProduction();
         public override ConstantDeclarationProduction Execute()
         {
             Check(TokenEnum.CONST);
-
-            BaseStruct type = typeProduction.Execute().Type;
+            BaseStruct type = typedIdentifierProduction.Execute().Type;
             if (!symbolTable.IsValidConstantType(type))
             {
                 errorHandler.ThrowParserError(ErrorMessages.invalidConstantType);
             }
             BaseSymbol constant = symbolTable.Insert(SymbolKind.Const, currentToken.StringRepresentation, type);
 
-            Check(TokenEnum.IDENT);
             Check(TokenEnum.ASSIGN);
             numberOrCharConstantProduction.SetAttributes(type, constant).Execute();
             Check(TokenEnum.SEMICOLON);
@@ -30,7 +28,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 
         public override void InitProductions()
         {
-            typeProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            typedIdentifierProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             numberOrCharConstantProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }
