@@ -9,44 +9,20 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         private readonly TypeOrVoidProduction typeOrVoidProduction = new TypeOrVoidProduction();
         private readonly VariableDeclarationProduction variableDeclarationProduction = new VariableDeclarationProduction();
-        private readonly ParamsProduction paramsProduction = new ParamsProduction();
+        private readonly ParamsDeclarationProduction paramsDeclarationProduction = new ParamsDeclarationProduction();
+        private readonly PosibleVariableDeclarationProduction posibleVariableDeclarationProduction  = new PosibleVariableDeclarationProduction();
         private readonly BlockProduction blockProduction = new BlockProduction();
 
         BaseSymbol currentMethod;
         public override MethodDeclarationProduction Execute()
         {
-            BaseStruct type = new BaseStruct(StructKind.None);
-
-            typeOrVoidProduction.SetAttributes(type).Execute();
+            typeOrVoidProduction.Execute();
             Check(TokenEnum.IDENT);
             Check(TokenEnum.LPAR);
-
-            currentMethod = symbolTable.Insert(SymbolKind.Meth, currentToken.StringRepresentation, type);
-            symbolTable.OpenScope(currentMethod);
-
-            if (lookingAheadToken.Kind == TokenEnum.IDENT)
-            {
-                paramsProduction.Execute();
-            }
-
+            paramsDeclarationProduction.Execute();
             Check(TokenEnum.RPAR);
-
-            while (lookingAheadToken.Kind != TokenEnum.LBRACE && lookingAheadToken.Kind != TokenEnum.EOF)
-            {
-                if (lookingAheadToken.Kind == TokenEnum.IDENT)
-                {
-                    variableDeclarationProduction.SetAttributes(SymbolKind.Local).Execute();
-                }
-                else
-                {
-                    errorHandler.ThrowParserError(ErrorMessages.variablesDeclarationExpected);
-                }
-            }
-
+            posibleVariableDeclarationProduction.Execute();
             blockProduction.Execute();
-
-            symbolTable.CloseScope();
-
             return this;
         }
 
@@ -54,7 +30,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         {
             typeOrVoidProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             variableDeclarationProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-            paramsProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            paramsDeclarationProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            posibleVariableDeclarationProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             blockProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }

@@ -23,7 +23,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         }
         public override PosibleMethodDeclarationProduction Execute()
         {
-            if ((lookingAheadToken.Kind == TokenEnum.IDENT || lookingAheadToken.Kind == TokenEnum.VOID) && lookingAheadToken.Kind != TokenEnum.EOF)
+            if (lookingAheadToken.Kind == TokenEnum.IDENT || lookingAheadToken.Kind == TokenEnum.VOID)
             {
                 methodDeclarationProduction.Execute();
                 Execute();

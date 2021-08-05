@@ -11,14 +11,6 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         private readonly ClassDeclarationProduction classDeclarationProduction = new ClassDeclarationProduction();
         private readonly VariableDeclarationProduction variableDeclarationProduction = new VariableDeclarationProduction();
 
-        private SymbolKind symbolKind;
-
-        public DeclarationProduction SetAttributes(SymbolKind symbolKind)
-        {
-            this.symbolKind = symbolKind;
-            return this;
-        }
-
         public override void InitProductions()
         {
             this.constantDeclarationProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
@@ -37,7 +29,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
                     }
                 case TokenEnum.IDENT:
                     {
-                        variableDeclarationProduction.SetAttributes(symbolKind).Execute();
+                        variableDeclarationProduction.Execute();
                         break;
                     }
                 case TokenEnum.CLASS:

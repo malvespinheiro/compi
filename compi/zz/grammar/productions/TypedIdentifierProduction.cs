@@ -12,13 +12,9 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         private readonly TypeProduction typeProduction = new TypeProduction();
 
-        BaseStruct type;
-
-        internal BaseStruct Type { get => type; set => type = value; }
-
         public override TypedIdentifierProduction Execute()
         {
-            type = typeProduction.Execute().Type;
+            typeProduction.Execute();
             Check(TokenEnum.IDENT);
             return this;
         }

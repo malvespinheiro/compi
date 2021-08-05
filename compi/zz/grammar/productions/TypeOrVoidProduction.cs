@@ -9,16 +9,6 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         private readonly TypeProduction typeProduction = new TypeProduction();
 
-        BaseStruct type;
-
-        internal BaseStruct Type { get => type; set => type = value; }
-
-        public TypeOrVoidProduction SetAttributes(BaseStruct type)
-        {
-            this.type = type;
-            return this;
-        }
-
         public override TypeOrVoidProduction Execute()
         {
             switch (lookingAheadToken.Kind)
@@ -26,12 +16,11 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
                 case TokenEnum.VOID:
                     {
                         Check(TokenEnum.VOID);
-                        type = symbolTable.noType;
                         break;
                     }
                 case TokenEnum.IDENT:
                     {
-                        type = typeProduction.Execute().Type;
+                        typeProduction.Execute();
                         break;
                     }
                 default:

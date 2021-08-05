@@ -7,60 +7,18 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
     class BlockProduction : CompoundProduction<BlockProduction>
     {
-
-        private readonly TypeProduction typeProduction = new TypeProduction();
-        private readonly StatementProduction statementProduction = new StatementProduction();
-
+        private readonly PosibleStatementProduction posibleStatementProduction = new PosibleStatementProduction();
         public override BlockProduction Execute()
         {
             Check(TokenEnum.LBRACE);
-            while (lookingAheadToken.Kind != TokenEnum.RBRACE)
-            {
-                if (IsValidStatementBegining(lookingAheadToken.Kind))
-                {
-                    statementProduction.Execute();
-                }
-                else
-                {
-                    errorHandler.ThrowParserError(ErrorMessages.statementExpected);
-                }
-            }
+            posibleStatementProduction.Execute();
             Check(TokenEnum.RBRACE);
             return this;
         }
 
-        private bool IsValidStatementBegining(TokenEnum tokenKind)
-        {
-            if(tokenKind == TokenEnum.EOF)
-                return false;
-            if(tokenKind == TokenEnum.IDENT)
-                return true;
-            if(tokenKind == TokenEnum.IF)
-                return true;
-            if(tokenKind == TokenEnum.WHILE)
-                return true;
-            if(tokenKind == TokenEnum.BREAK)
-                return true;
-            if(tokenKind == TokenEnum.RETURN)
-                return true;
-            if(tokenKind == TokenEnum.READ)
-                return true;
-            if(tokenKind == TokenEnum.WRITE)
-                return true;
-            if(tokenKind == TokenEnum.WRITELN)
-                return true;
-            if(tokenKind == TokenEnum.LBRACE)
-                return true;
-            if(tokenKind == TokenEnum.SEMICOLON)
-                return true;
-
-            return false;
-        }
-
         public override void InitProductions()
         {
-            typeProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-            statementProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            posibleStatementProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }
 }

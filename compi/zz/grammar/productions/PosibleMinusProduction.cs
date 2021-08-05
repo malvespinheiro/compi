@@ -5,11 +5,14 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class TypeProduction : BaseProduction<TypeProduction>
+    class PosibleMinusProduction : BaseProduction<PosibleMinusProduction>
     {
-        public override TypeProduction Execute()
+        public override PosibleMinusProduction Execute()
         {
-            Check(TokenEnum.IDENT);
+            if (lookingAheadToken.Kind == TokenEnum.MINUS)
+            {
+                Check(TokenEnum.MINUS);
+            }
             return this;
         }
     }

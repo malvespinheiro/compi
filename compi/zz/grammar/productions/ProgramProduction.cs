@@ -20,19 +20,10 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         {
             Check(TokenEnum.CLASS);
             Check(TokenEnum.IDENT);
-
-            BaseSymbol progamSymbol = symbolTable.Insert(SymbolKind.Prog, currentToken.StringRepresentation, symbolTable.noType);
-            symbolTable.OpenScope(progamSymbol);
-
-            posibleDeclarationProduction.SetAttributes(SymbolKind.Global).Execute();
-
+            posibleDeclarationProduction.Execute();
             Check(TokenEnum.LBRACE);
             posibleMethodDeclarationProduction.Execute();
             Check(TokenEnum.RBRACE);
-
-            progamSymbol.Locals = symbolTable.TopScope.locals;
-            symbolTable.CloseScope();
-
             return this;
         }
     }

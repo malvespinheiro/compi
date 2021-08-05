@@ -13,15 +13,9 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         public override ConstantDeclarationProduction Execute()
         {
             Check(TokenEnum.CONST);
-            BaseStruct type = typedIdentifierProduction.Execute().Type;
-            if (!symbolTable.IsValidConstantType(type))
-            {
-                errorHandler.ThrowParserError(ErrorMessages.invalidConstantType);
-            }
-            BaseSymbol constant = symbolTable.Insert(SymbolKind.Const, currentToken.StringRepresentation, type);
-
+            typedIdentifierProduction.Execute();
             Check(TokenEnum.ASSIGN);
-            numberOrCharConstantProduction.SetAttributes(type, constant).Execute();
+            numberOrCharConstantProduction.Execute();
             Check(TokenEnum.SEMICOLON);
             return this;
         }

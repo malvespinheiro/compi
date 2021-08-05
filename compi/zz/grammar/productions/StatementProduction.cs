@@ -8,100 +8,77 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class StatementProduction : CompoundProduction<StatementProduction>
     {
 
-        private readonly TypeProduction typeProduction = new TypeProduction();
+        private readonly RestOfStatementProduction restOfStatementProduction = new RestOfStatementProduction();
 
         public override StatementProduction Execute()
         {
-            if (la == Token.IDENT)
+            if (!IsValidStatementBegining(lookingAheadToken.Kind))
             {
-                Designator(out itemIzq); //val   en statement
-                switch (la)
-                {
-                    case Token.ASSIGN:  //asignacion  Designator = ....
-                        {
-                            Check(Token.ASSIGN);
-                            Expr(out itemDer, nexpr);
-                            break;
-                        }
-                    case Token.LPAR: 
-                        {
-                            Check(Token.LPAR);
-                            if (la == Token.MINUS || la == Token.IDENT ||
-                                la == Token.NUMBER || la == Token.CHARCONST ||
-                                la == Token.NEW || la == Token.LPAR)
-                                ActPars();
-                            Check(Token.RPAR);
-                            break;
-                        }
-                    case Token.PPLUS:
-                        {
-                            Check(Token.PPLUS);
-                            break;
-                        }
-                    case Token.MMINUS:
-                        {
-                            Check(Token.MMINUS);
-                            break;
-                        }
-                }
-                Check(Token.SEMICOLON);
+                errorHandler.ThrowParserError(ErrorMessages.statementExpected);
+            }
+
+            if (lookingAheadToken.Kind == TokenEnum.IDENT)
+            {
+                Check(TokenEnum.IDENT);
+                restOfStatementProduction.Execute();
+                Check(TokenEnum.COMMA);
             }
             else
             {
-                switch (la)
+                switch (lookingAheadToken.Kind)
                 {
-                    case Token.IF:
-                        Check(Token.IF);
-                        Check(Token.LPAR);
+                    case TokenEnum.IF:
+                        Check(TokenEnum.IF);
+                        Check(TokenEnum.LPAR);
                         Condition(out x);
-                        Check(Token.RPAR);
+                        Check(TokenEnum.RPAR);
                         Statement(nstatement);
-                        if (la == Token.ELSE)
+                        if (lookingAheadToken.Kind == TokenEnum.ELSE)
                         {
-                            Check(Token.ELSE);
+                            Check(TokenEnum.ELSE);
                             Statement(nelse);
                         }
                         break;
 
-                    case Token.WHILE:
-                        Check(Token.WHILE);
-                        Check(Token.LPAR);
+                    case TokenEnum.WHILE:
+                        Check(TokenEnum.WHILE);
+                        Check(TokenEnum.LPAR);
                         Condition(out x);
-                        Check(Token.RPAR);
-                        Check(Token.LBRACE);
-                        while (la != Token.RBRACE && la != Token.EOF)
+                        Check(TokenEnum.RPAR);
+                        Check(TokenEnum.LBRACE);
+                        while (la != TokenEnum.RBRACE && la != TokenEnum.EOF)
                         {
                             Statement(nstatement2);
                         }
-                        Check(Token.RBRACE);
+                        Check(TokenEnum.RBRACE);
                         break;
-                    case Token.BREAK:
-                        Check(Token.BREAK);
-                        Check(Token.SEMICOLON);
+                    case TokenEnum.BREAK:
+                        Check(TokenEnum.BREAK);
+                        Check(TokenEnum.SEMICOLON);
                         break;
-                    case Token.RETURN:
-                        Check(Token.RETURN);
-                        if (la == Token.MINUS || la == Token.IDENT || la == Token.NUMBER ||
-                            la == Token.CHARCONST || la == Token.NEW || la == Token.LPAR)
+                    case TokenEnum.RETURN:
+                        Check(TokenEnum.RETURN);
+                        if (lookingAheadToken.Kind == TokenEnum.MINUS || lookingAheadToken.Kind == TokenEnum.IDENT || lookingAheadToken.Kind == TokenEnum.NUMBER ||
+                            lookingAheadToken.Kind == TokenEnum.CHARCONST || lookingAheadToken.Kind == TokenEnum.NEW || lookingAheadToken.Kind == TokenEnum.LPAR)
                             Expr(out item, null);
-                        Check(Token.SEMICOLON);
+                        Check(TokenEnum.SEMICOLON);
                         break;
-                    case Token.READ:
-                        Check(Token.READ);
-                        Check(Token.LPAR);
-                        if (la == Token.IDENT)
+                    case TokenEnum.READ:
+                        Check(TokenEnum.READ);
+                        Check(TokenEnum.LPAR);
+                        if (lookingAheadToken.Kind == TokenEnum.IDENT)
                             Designator(out item, null);
-                        Check(Token.RPAR);
-                        Check(Token.SEMICOLON);
+                        Check(TokenEnum.RPAR);
+                        Check(TokenEnum.SEMICOLON);
                         break;
-                    case Token.WRITELN: 
+                    case TokenEnum.WRITELN: 
                         ///////////////////////// Este bloque agrega y muestra writeln en el arbol y selecciona la gramatica
-                        Check(Token.WRITELN);
+                        Check(TokenEnum.WRITELN);
 
                         //token queda con WRITELN y laToken =  "(" y ch con Comm Doble
-                        //equivalente a Check(Token.LPAR);
+                        //equivalente a Check(TokenEnum.LPAR);
                         //debe quedar token = "("  y laToken = "texto posiblem vacio"               
-                        if (la == Token.LPAR) //ch = Comm Doble
+                        if (lookingAheadToken.Kind == TokenEnum.LPAR) //ch = Comm Doble
                         {
                             if (Scanner.ch != '\"')
                                 Errors.Error("Se esperaba una COMILLA DOBLE");
@@ -112,13 +89,13 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 
                                 while (Scanner.ch != '\"')
                                 {
-                                    //if (ch == EOF) return new Token(Token.EOF, line, col);
+                                    //if (ch == EOF) return new Token(TokenEnum.EOF, line, col);
                                     argStr = argStr + Scanner.ch.ToString();
                                     Scanner.NextCh();  //ch = 2º char del argStr o Com Doble
                                 }
                                 //ch = Com Doble
                                 token = new Token(Scanner.line, Scanner.col);
-                                token.kind = Token.COMILLADOBLE; //se va a llamar argDeWriteLine
+                                token.kind = TokenEnum.COMILLADOBLE; //se va a llamar argDeWriteLine
                                 token.str = argStr; // excluye las comillas dobles
                                 //token.line lo deja =
                                 token.col = token.col - argStr.Length; //+ 1; // -3; //DESPUES DEL "("
@@ -128,85 +105,78 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
                                 laToken = Scanner.Next(); //la token queda con ")"
                                 la = laToken.kind;
 
-                                Check(Token.RPAR);
-                                Check(Token.SEMICOLON);
+                                Check(TokenEnum.RPAR);
+                                Check(TokenEnum.SEMICOLON);
                             }
                         }
                         break;
-                    case Token.WRITE: ///  En Statement
+                    case TokenEnum.WRITE: ///  En Statement
 
                         // G3 - PERUWRITE
                         //////////////// Agrega 'write' al arbol y lo muestra y colorea
-                        Check(Token.WRITE);
-                        Check(Token.LPAR);
+                        Check(TokenEnum.WRITE);
+                        Check(TokenEnum.LPAR);
 
                         // First(Expr)
-                        if (la == Token.MINUS || la == Token.IDENT || la == Token.NUMBER ||
-                            la == Token.CHARCONST || la == Token.NEW || la == Token.LPAR)
+                        if (lookingAheadToken.Kind == TokenEnum.MINUS || lookingAheadToken.Kind == TokenEnum.IDENT || lookingAheadToken.Kind == TokenEnum.NUMBER ||
+                            lookingAheadToken.Kind == TokenEnum.CHARCONST || lookingAheadToken.Kind == TokenEnum.NEW || lookingAheadToken.Kind == TokenEnum.LPAR)
 
                             AA(out item); ///?????
 
                         Expr(out item, expr1); // Crea la Expr
-                        if (la != Token.RBRACE) // Le provee 10 espacios de escritura sino manda ningun numero
+                        if (la != TokenEnum.RBRACE) // Le provee 10 espacios de escritura sino manda ningun numero
                         // Por ej. write(x);
                         {
-                            Check(Token.COMMA);
+                            Check(TokenEnum.COMMA);
 
                             Expr(out itemAncho, expr2);
-                            Check(Token.RPAR);
+                            Check(TokenEnum.RPAR);
                         }
-                        Check(Token.SEMICOLON);
+                        Check(TokenEnum.SEMICOLON);
                         break;
-                    case Token.LBRACE:
+                    case TokenEnum.LBRACE:
                         Block(blockint);  //bloque(blockint = bloque interior)dentro de una sentencia
                         break;
-                    case Token.SEMICOLON:
-                        Check(Token.SEMICOLON);
+                    case TokenEnum.SEMICOLON:
+                        Check(TokenEnum.SEMICOLON);
                         break;
                     default:
                         Errors.Error("Espero una sentencia");
                         break;
                 }
             }
-
-
-
-
-            
             return this;
         }
-
         private bool IsValidStatementBegining(TokenEnum tokenKind)
         {
-            if(tokenKind == TokenEnum.EOF)
+            if (tokenKind == TokenEnum.EOF)
                 return false;
-            if(tokenKind == TokenEnum.IDENT)
+            if (tokenKind == TokenEnum.IDENT)
                 return true;
-            if(tokenKind == TokenEnum.IF)
+            if (tokenKind == TokenEnum.IF)
                 return true;
-            if(tokenKind == TokenEnum.WHILE)
+            if (tokenKind == TokenEnum.WHILE)
                 return true;
-            if(tokenKind == TokenEnum.BREAK)
+            if (tokenKind == TokenEnum.BREAK)
                 return true;
-            if(tokenKind == TokenEnum.RETURN)
+            if (tokenKind == TokenEnum.RETURN)
                 return true;
-            if(tokenKind == TokenEnum.READ)
+            if (tokenKind == TokenEnum.READ)
                 return true;
-            if(tokenKind == TokenEnum.WRITE)
+            if (tokenKind == TokenEnum.WRITE)
                 return true;
-            if(tokenKind == TokenEnum.WRITELN)
+            if (tokenKind == TokenEnum.WRITELN)
                 return true;
-            if(tokenKind == TokenEnum.LBRACE)
+            if (tokenKind == TokenEnum.LBRACE)
                 return true;
-            if(tokenKind == TokenEnum.SEMICOLON)
+            if (tokenKind == TokenEnum.SEMICOLON)
                 return true;
 
             return false;
         }
-
         public override void InitProductions()
         {
-            typeProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            restOfStatementProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }
 }
