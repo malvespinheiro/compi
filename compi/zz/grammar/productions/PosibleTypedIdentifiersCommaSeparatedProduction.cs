@@ -27,6 +27,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             if (lookingAheadToken.Kind == TokenEnum.COMMA && lookingAheadToken.Kind != TokenEnum.EOF)
             {
                 Check(TokenEnum.COMMA);
+                typedIdentifierProduction.Execute();
                 Execute();
             }
             return this;

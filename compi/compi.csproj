@@ -76,6 +76,10 @@
     <Compile Include="basis\symbolTable\SymbolKind.cs" />
     <Compile Include="basis\symbolTable\BaseSymbol.cs" />
     <Compile Include="zz\grammar\productions\NumberOrCharConstantProduction.cs" />
+    <Compile Include="zz\grammar\productions\ParamDeclarationProduction.cs" />
+    <Compile Include="zz\grammar\productions\ParamsDeclarationProduction.cs" />
+    <Compile Include="zz\grammar\productions\PosibleTypedIdentifiersCommaSeparatedProduction.cs" />
+    <Compile Include="zz\grammar\productions\TypedIdentifierProduction.cs" />
     <Compile Include="zz\grammar\productions\TypeOrVoidProduction.cs" />
     <Compile Include="zz\grammar\productions\PosibleMethodDeclarationProduction.cs" />
     <Compile Include="zz\grammar\productions\DeclarationProduction.cs" />
