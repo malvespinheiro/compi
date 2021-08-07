@@ -86,11 +86,6 @@ namespace unsj.fcefn.compiladores.compi.zz
                         token.StringRepresentation = currentCharacter.ToString(); 
                         NextCharacter();
                         break;
-                    case '\"':
-                        NextCharacter();
-                        token.Kind = TokenEnum.DOUBLEQUOTE;
-                        token.StringRepresentation = "\"";
-                        break;
                     case EOF:
                         token.Kind = TokenEnum.EOF;
                         break;
@@ -260,7 +255,19 @@ namespace unsj.fcefn.compiladores.compi.zz
                             NextCharacter();
                         }
                         break;
-
+                    //  --------------------
+                    // | CONSTANTE STRING
+                    //  --------------------
+                    case '\"':
+                        NextCharacter();
+                        while (currentCharacter != '\"')
+                        {
+                            token.StringRepresentation += currentCharacter;
+                            NextCharacter();
+                        }
+                        token.StringRepresentation += "\"";
+                        token.Kind = TokenEnum.STRINGCONST;
+                        break;
                     // -----------------------
                     //| comentarios           |
                     // -----------------------   

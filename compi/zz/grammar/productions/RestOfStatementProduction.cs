@@ -7,6 +7,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
     class RestOfStatementProduction : CompoundProduction<RestOfStatementProduction>
     {
+        ExpressionProduction expressionProduction = new ExpressionProduction();
+        PosibleParamsSendProduction posibleParamsSendProduction = new PosibleParamsSendProduction();
         public override RestOfStatementProduction Execute()
         {
             switch (lookingAheadToken.Kind)
@@ -14,16 +16,14 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
                 case TokenEnum.ASSIGN: 
                     {
                         Check(TokenEnum.ASSIGN);
-                        Expr(out itemDer, nexpr);
+                        expressionProduction.Execute();
+                        Check(TokenEnum.SEMICOLON);
                         break;
                     }
                 case TokenEnum.LPAR: 
                     {
                         Check(TokenEnum.LPAR);
-                        if (lookingAheadToken.Kind == TokenEnum.MINUS || lookingAheadToken.Kind == TokenEnum.IDENT ||
-                            lookingAheadToken.Kind == TokenEnum.NUMBER || lookingAheadToken.Kind == TokenEnum.CHARCONST ||
-                            lookingAheadToken.Kind == TokenEnum.NEW || lookingAheadToken.Kind == TokenEnum.LPAR)
-                            ActPars();
+                        posibleParamsSendProduction.Execute();
                         Check(TokenEnum.RPAR);
                         break;
                     }
@@ -42,7 +42,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         }
         public override void InitProductions()
         {
-
+            expressionProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            posibleParamsSendProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }
 }

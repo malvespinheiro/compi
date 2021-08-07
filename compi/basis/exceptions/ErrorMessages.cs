@@ -15,7 +15,11 @@
         public static readonly string statementExpected = "Se esperaba una sentencia.";
         public static readonly string typeOrVoidExpected = "Se esperaba Type o void.";
         public static readonly string indentifierExpected = "Se esperaba un identificador.";
-        public static readonly string termExpected = "Se esperaba un término";
+        public static readonly string termExpected = "Se esperaba un término.";
         public static readonly string termOperatorExpected = "Se esperaba el operador de un término.";
+        public static readonly string factorOperatorExpected = "Se esperaba el operador de un factor.";
+        public static readonly string invalidFactor = "El factor es inválido.";
+        public static readonly string invalidStatement = "La sentencia es inválida.";
+        public static readonly string relationalOperatorExpected = "Se esperaba un operador relacional.";
     }
 }

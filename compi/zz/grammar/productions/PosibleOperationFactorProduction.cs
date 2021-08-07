@@ -5,29 +5,28 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class TermProduction : CompoundProduction<TermProduction>
+    class PosibleOperationFactorProduction : CompoundProduction<PosibleOperationFactorProduction>
     {
+        OperationFactorProduction operationFactorProduction = new OperationFactorProduction();
         FactorProduction factorProduction = new FactorProduction();
-        PosibleOperationFactorProduction posibleOperationFactorProduction = new PosibleOperationFactorProduction();
-        public override TermProduction Execute()
-        {
-            if (!IsValidTermBegining(lookingAheadToken.Kind))
-            {
-                errorHandler.ThrowParserError(ErrorMessages.termExpected);
-            }
 
-            factorProduction.Execute();
-            posibleOperationFactorProduction.Execute();
-            
+        public override PosibleOperationFactorProduction Execute()
+        {
+            if (lookingAheadToken.Kind == TokenEnum.TIMES || lookingAheadToken.Kind == TokenEnum.SLASH || lookingAheadToken.Kind != TokenEnum.REM)
+            {
+                operationFactorProduction.Execute();
+                factorProduction.Execute();
+                Execute();
+            }
             return this;
         }
         public override void InitProductions()
         {
-            factorProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-            posibleOperationFactorProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-        }
+        operationFactorProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+        factorProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+    }
 
-        public bool IsValidTermBegining(TokenEnum tokenKind)
+        private bool IsValidTermBegining(TokenEnum tokenKind)
         {
             if (tokenKind == TokenEnum.IDENT)
                 return true;

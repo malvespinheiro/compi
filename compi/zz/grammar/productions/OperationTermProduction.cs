@@ -5,29 +5,38 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class TermProduction : CompoundProduction<TermProduction>
+    class OperationTermProduction : CompoundProduction<OperationTermProduction>
     {
         FactorProduction factorProduction = new FactorProduction();
-        PosibleOperationFactorProduction posibleOperationFactorProduction = new PosibleOperationFactorProduction();
-        public override TermProduction Execute()
+        public override OperationTermProduction Execute()
         {
-            if (!IsValidTermBegining(lookingAheadToken.Kind))
+            if (lookingAheadToken.Kind != TokenEnum.PLUS && lookingAheadToken.Kind != TokenEnum.MINUS)
             {
-                errorHandler.ThrowParserError(ErrorMessages.termExpected);
+                errorHandler.ThrowParserError(ErrorMessages.termOperatorExpected);
             }
-
-            factorProduction.Execute();
-            posibleOperationFactorProduction.Execute();
-            
+            if (lookingAheadToken.Kind == TokenEnum.PLUS)
+            {
+                Check(TokenEnum.PLUS);
+            }
+            else
+            {
+                if (lookingAheadToken.Kind == TokenEnum.MINUS)
+                {
+                    Check(TokenEnum.MINUS);
+                }
+                else
+                {
+                    errorHandler.ThrowParserError(ErrorMessages.termOperatorExpected);
+                }
+            }
             return this;
         }
         public override void InitProductions()
         {
             factorProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-            posibleOperationFactorProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
 
-        public bool IsValidTermBegining(TokenEnum tokenKind)
+        private bool IsValidTermBegining(TokenEnum tokenKind)
         {
             if (tokenKind == TokenEnum.IDENT)
                 return true;

@@ -6,6 +6,7 @@ namespace unsj.fcefn.compiladores.compi.basis.language.token
         IDENT,
         NUMBER,
         CHARCONST,
+        STRINGCONST,
         PLUS,
         MINUS,
         TIMES,
@@ -43,7 +44,6 @@ namespace unsj.fcefn.compiladores.compi.basis.language.token
         WHILE,
         WRITE,
         EOF,
-        WRITELN,
-        DOUBLEQUOTE
+        WRITELN
     }
 }

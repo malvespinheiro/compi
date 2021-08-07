@@ -102,7 +102,7 @@ namespace unsj.fcefn.compiladores.compi.basis.language.token
                 case TokenEnum.WHILE: { return "while"; }
                 case TokenEnum.WRITE: { return "write"; }
                 case TokenEnum.EOF: { return "end of file"; }
-                case TokenEnum.DOUBLEQUOTE: { return "\""; }
+                case TokenEnum.STRINGCONST: { return "string"; }
             }
         }
 
