@@ -1,11 +1,10 @@
-﻿using compi.basis.symbolTable;
-using unsj.fcefn.compiladores.compi.basis;
+﻿using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class FactorProduction : CompoundProduction<FactorProduction>
+    class FactorProduction : CompoundAndCheckedProduction<FactorProduction>
     {
         PossibleRestOfMethodCallProduction possibleRestOfMethodCallProduction = new PossibleRestOfMethodCallProduction();
         ExpressionProduction expressionProduction = new ExpressionProduction();
@@ -43,6 +42,17 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         {
             possibleRestOfMethodCallProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             expressionProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+        }
+        public override bool ValidBegin(TokenEnum tokenExpected)
+        {
+            if (tokenExpected == TokenEnum.IDENT)
+                return true;
+            if (tokenExpected == TokenEnum.NUMBER)
+                return true;
+            if (tokenExpected == TokenEnum.LPAR)
+                return true;
+
+            return false;
         }
     }
 }

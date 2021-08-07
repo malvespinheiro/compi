@@ -1,6 +1,4 @@
-﻿using compi.basis.symbolTable;
-using unsj.fcefn.compiladores.compi.basis;
-using unsj.fcefn.compiladores.compi.basis.exceptions;
+﻿using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
@@ -18,7 +16,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         }
         public override ProgramProduction Execute()
         {
-            Check(TokenEnum.CLASS);
+            Check(TokenEnum.PROGRAM);
             Check(TokenEnum.IDENT);
             possibleDeclarationProduction.Execute();
             Check(TokenEnum.LBRACE);

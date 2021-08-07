@@ -10,7 +10,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         ExpressionProduction expressionProduction = new ExpressionProduction();
         public override StringOrExpressionProduction Execute()
         {
-            if (expressionProduction.IsValidExpressionBegining(lookingAheadToken.Kind))
+            if (expressionProduction.ValidBegin(lookingAheadToken.Kind))
             {
                 expressionProduction.Execute();
             }

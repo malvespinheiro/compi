@@ -33,7 +33,7 @@ namespace unsj.fcefn.compiladores.compi.basis.language.token
         LBRACE,
         RBRACE,
         BREAK,
-        CLASS,
+        PROGRAM,
         CONST,
         ELSE,
         IF,

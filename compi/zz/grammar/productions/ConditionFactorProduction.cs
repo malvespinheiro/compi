@@ -1,7 +1,4 @@
-﻿using compi.basis.symbolTable;
-using unsj.fcefn.compiladores.compi.basis;
-using unsj.fcefn.compiladores.compi.basis.exceptions;
-using unsj.fcefn.compiladores.compi.basis.language.token;
+﻿using unsj.fcefn.compiladores.compi.basis;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
@@ -21,6 +18,5 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             expressionProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             relationalOperatorProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
-       
     }
 }

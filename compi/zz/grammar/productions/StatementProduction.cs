@@ -1,27 +1,20 @@
-﻿using compi.basis.symbolTable;
-using unsj.fcefn.compiladores.compi.basis;
+﻿using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class StatementProduction : CompoundProduction<StatementProduction>
+    class StatementProduction : CompoundAndCheckedProduction<StatementProduction>
     {
-
         private readonly RestOfStatementProduction restOfStatementProduction = new RestOfStatementProduction();
+        private readonly ConditionProduction conditionProduction = new ConditionProduction();
         private readonly PossibleElseProduction possibleElseProduction = new PossibleElseProduction();
         private readonly BlockProduction blockProduction = new BlockProduction();
         private readonly ExpressionProduction expressionProduction = new ExpressionProduction();
-        private readonly ConditionProduction conditionProduction = new ConditionProduction();
         private readonly StringOrExpressionProduction stringOrExpressionProduction = new StringOrExpressionProduction();
 
         public override StatementProduction Execute()
         {
-            if (!IsValidStatementBegining(lookingAheadToken.Kind))
-            {
-                errorHandler.ThrowParserError(ErrorMessages.statementExpected);
-            }
-
             switch (lookingAheadToken.Kind)
             {
                 case TokenEnum.IDENT:
@@ -59,7 +52,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
                 case TokenEnum.RETURN:
                     {
                         Check(TokenEnum.RETURN);
-                        if (expressionProduction.IsValidExpressionBegining(lookingAheadToken.Kind))
+                        if (expressionProduction.ValidBegin(lookingAheadToken.Kind))
                             expressionProduction.Execute();
                         Check(TokenEnum.SEMICOLON);
                         break;
@@ -76,7 +69,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
                     }
                 case TokenEnum.WRITE:
                     {
-                        Check(TokenEnum.WRITELN);
+                        Check(TokenEnum.WRITE);
                         Check(TokenEnum.LPAR);
                         expressionProduction.Execute();
                         if (lookingAheadToken.Kind == TokenEnum.COMMA)
@@ -113,33 +106,6 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             }
             return this;
         }
-        private bool IsValidStatementBegining(TokenEnum tokenKind)
-        {
-            if (tokenKind == TokenEnum.EOF)
-                return false;
-            if (tokenKind == TokenEnum.IDENT)
-                return true;
-            if (tokenKind == TokenEnum.IF)
-                return true;
-            if (tokenKind == TokenEnum.WHILE)
-                return true;
-            if (tokenKind == TokenEnum.BREAK)
-                return true;
-            if (tokenKind == TokenEnum.RETURN)
-                return true;
-            if (tokenKind == TokenEnum.READ)
-                return true;
-            if (tokenKind == TokenEnum.WRITE)
-                return true;
-            if (tokenKind == TokenEnum.WRITELN)
-                return true;
-            if (tokenKind == TokenEnum.LBRACE)
-                return true;
-            if (tokenKind == TokenEnum.SEMICOLON)
-                return true;
-
-            return false;
-        }
         public override void InitProductions()
         {
             restOfStatementProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
@@ -148,6 +114,33 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             stringOrExpressionProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             conditionProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             expressionProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+        }
+        public override bool ValidBegin(TokenEnum tokenExpected)
+        {
+            if (tokenExpected == TokenEnum.EOF)
+                return false;
+            if (tokenExpected == TokenEnum.IDENT)
+                return true;
+            if (tokenExpected == TokenEnum.IF)
+                return true;
+            if (tokenExpected == TokenEnum.WHILE)
+                return true;
+            if (tokenExpected == TokenEnum.BREAK)
+                return true;
+            if (tokenExpected == TokenEnum.RETURN)
+                return true;
+            if (tokenExpected == TokenEnum.READ)
+                return true;
+            if (tokenExpected == TokenEnum.WRITE)
+                return true;
+            if (tokenExpected == TokenEnum.WRITELN)
+                return true;
+            if (tokenExpected == TokenEnum.LBRACE)
+                return true;
+            if (tokenExpected == TokenEnum.SEMICOLON)
+                return true;
+
+            return false;
         }
     }
 }

@@ -4,7 +4,7 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class ParamsSendProduction : CompoundProduction<ParamsSendProduction>
+    class ParamsSendProduction : CompoundAndCheckedProduction<ParamsSendProduction>
     {
         private readonly ExpressionProduction expressionProduction = new ExpressionProduction();
         private readonly PossibleExpressionCommaSeparatedProduction possibleExpressionCommaSeparatedProduction = new PossibleExpressionCommaSeparatedProduction();
@@ -20,6 +20,11 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         {
             expressionProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             possibleExpressionCommaSeparatedProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+        }
+
+        public override bool ValidBegin(TokenEnum tokenExpected)
+        {
+            return expressionProduction.ValidBegin(tokenExpected);
         }
     }
 }

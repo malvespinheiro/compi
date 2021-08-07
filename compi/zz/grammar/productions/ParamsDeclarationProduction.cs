@@ -25,7 +25,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         }
         public override ParamsDeclarationProduction Execute()
         {
-            if (lookingAheadToken.Kind == TokenEnum.IDENT)
+            if (typedIdentifierProduction.ValidBegin(lookingAheadToken.Kind))
             {
                 typedIdentifierProduction.Execute();
                 possibleTypedIdentifiersCommaSeparatedProduction.Execute();

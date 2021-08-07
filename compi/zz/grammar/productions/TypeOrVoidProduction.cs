@@ -1,14 +1,12 @@
-﻿using compi.basis.symbolTable;
-using unsj.fcefn.compiladores.compi.basis;
+﻿using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class TypeOrVoidProduction : CompoundProduction<TypeOrVoidProduction>
+    class TypeOrVoidProduction : CompoundAndCheckedProduction<TypeOrVoidProduction>
     {
         private readonly TypeProduction typeProduction = new TypeProduction();
-
         public override TypeOrVoidProduction Execute()
         {
             switch (lookingAheadToken.Kind)
@@ -28,14 +26,16 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
                         errorHandler.ThrowParserError(ErrorMessages.typeOrVoidExpected);
                         break;
                     }
-
             }
             return this;
         }
-
         public override void InitProductions()
         {
             typeProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+        }
+        public override bool ValidBegin(TokenEnum tokenExpected)
+        {
+            return tokenExpected == TokenEnum.IDENT || tokenExpected == TokenEnum.VOID;
         }
     }
 }

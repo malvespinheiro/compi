@@ -14,7 +14,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         }
         public override PossibleDeclarationProduction Execute()
         {
-            if (lookingAheadToken.Kind == TokenEnum.CONST || lookingAheadToken.Kind == TokenEnum.IDENT || lookingAheadToken.Kind == TokenEnum.CLASS)
+            if (declarationProduction.ValidBegin(lookingAheadToken.Kind))
             {
                 declarationProduction.Execute();
                 Execute();

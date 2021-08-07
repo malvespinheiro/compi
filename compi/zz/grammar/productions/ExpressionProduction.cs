@@ -1,11 +1,9 @@
-﻿using compi.basis.symbolTable;
-using unsj.fcefn.compiladores.compi.basis;
-using unsj.fcefn.compiladores.compi.basis.exceptions;
+﻿using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class ExpressionProduction : CompoundProduction<ExpressionProduction>
+    class ExpressionProduction : CompoundAndCheckedProduction<ExpressionProduction>
     {
         PossibleMinusProduction possibleMinusProduction = new PossibleMinusProduction();
         TermProduction termProduction = new TermProduction();
@@ -20,12 +18,12 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         public override void InitProductions()
         {
             possibleMinusProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            termProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             possibleOperationTermProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
-
-        public bool IsValidExpressionBegining(TokenEnum tokenExpected)
+        public override bool ValidBegin(TokenEnum tokenExpected)
         {
-            return termProduction.IsValidTermBegining(tokenExpected) || tokenExpected == TokenEnum.MINUS;
+            return possibleMinusProduction.ValidBegin(tokenExpected) || termProduction.ValidBegin(tokenExpected);
         }
     }
 }

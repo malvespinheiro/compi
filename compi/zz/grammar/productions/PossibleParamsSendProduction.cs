@@ -6,12 +6,11 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
     class PossibleParamsSendProduction : CompoundProduction<PossibleParamsSendProduction>
     {
-        private readonly ExpressionProduction expressionProduction = new ExpressionProduction();
         private readonly ParamsSendProduction paramsSendProduction  = new ParamsSendProduction();
 
         public override PossibleParamsSendProduction Execute()
         {
-            if (lookingAheadToken.Kind == TokenEnum.MINUS || expressionProduction.IsValidExpressionBegining(lookingAheadToken.Kind))
+            if (paramsSendProduction.ValidBegin(lookingAheadToken.Kind))
             {
                 paramsSendProduction.Execute();
             }
@@ -20,7 +19,6 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 
         public override void InitProductions()
         {
-            expressionProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             paramsSendProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }

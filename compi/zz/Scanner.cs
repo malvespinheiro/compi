@@ -333,9 +333,6 @@ namespace unsj.fcefn.compiladores.compi.zz
                     case "break":
                         token.Kind = TokenEnum.BREAK;
                         break;
-                    case "class":
-                        token.Kind = TokenEnum.CLASS;
-                        break;
                     case "const":
                         token.Kind = TokenEnum.CONST;
                         break;

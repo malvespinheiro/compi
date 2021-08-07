@@ -91,7 +91,6 @@ namespace unsj.fcefn.compiladores.compi.basis.language.token
                 case TokenEnum.LBRACE: { return "{"; }
                 case TokenEnum.RBRACE: { return "}"; }
                 case TokenEnum.BREAK: { return "break"; }
-                case TokenEnum.CLASS: { return "class"; }
                 case TokenEnum.CONST: { return "const"; }
                 case TokenEnum.ELSE: { return "else"; }
                 case TokenEnum.IF: { return "if"; }

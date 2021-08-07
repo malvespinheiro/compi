@@ -1,11 +1,9 @@
-﻿using compi.basis.symbolTable;
-using unsj.fcefn.compiladores.compi.basis;
-using unsj.fcefn.compiladores.compi.basis.exceptions;
+﻿using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PossibleMinusProduction : BaseProduction<PossibleMinusProduction>
+    class PossibleMinusProduction : CheckedBeganProduction<PossibleMinusProduction>
     {
         public override PossibleMinusProduction Execute()
         {
@@ -14,6 +12,10 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
                 Check(TokenEnum.MINUS);
             }
             return this;
+        }
+        public override bool ValidBegin(TokenEnum tokenExpected)
+        {
+            return tokenExpected == TokenEnum.MINUS;
         }
     }
 }
