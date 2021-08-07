@@ -5,10 +5,10 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PosibleConditionTermProduction : CompoundProduction<PosibleConditionTermProduction>
+    class PossibleConditionTermProduction : CompoundProduction<PossibleConditionTermProduction>
     {
         ConditionTermProduction conditionTermProduction = new ConditionTermProduction();
-        public override PosibleConditionTermProduction Execute()
+        public override PossibleConditionTermProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.OR)
             {

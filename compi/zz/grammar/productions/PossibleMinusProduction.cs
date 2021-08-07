@@ -5,9 +5,9 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PosibleMinusProduction : BaseProduction<PosibleMinusProduction>
+    class PossibleMinusProduction : BaseProduction<PossibleMinusProduction>
     {
-        public override PosibleMinusProduction Execute()
+        public override PossibleMinusProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.MINUS)
             {

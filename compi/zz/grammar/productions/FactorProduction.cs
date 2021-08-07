@@ -7,7 +7,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
     class FactorProduction : CompoundProduction<FactorProduction>
     {
-        PosibleRestOfMethodCallProduction posibleRestOfMethodCallProduction = new PosibleRestOfMethodCallProduction();
+        PossibleRestOfMethodCallProduction possibleRestOfMethodCallProduction = new PossibleRestOfMethodCallProduction();
         ExpressionProduction expressionProduction = new ExpressionProduction();
         public override FactorProduction Execute()
         {
@@ -16,7 +16,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
                 case TokenEnum.IDENT:
                     {
                         Check(TokenEnum.IDENT);
-                        posibleRestOfMethodCallProduction.Execute();
+                        possibleRestOfMethodCallProduction.Execute();
                         break;
                     }
                 case TokenEnum.NUMBER:
@@ -41,7 +41,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         }
         public override void InitProductions()
         {
-            posibleRestOfMethodCallProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            possibleRestOfMethodCallProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             expressionProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }

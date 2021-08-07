@@ -7,20 +7,20 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
     class ExpressionProduction : CompoundProduction<ExpressionProduction>
     {
-        PosibleMinusProduction posibleMinusProduction = new PosibleMinusProduction();
+        PossibleMinusProduction possibleMinusProduction = new PossibleMinusProduction();
         TermProduction termProduction = new TermProduction();
-        PosibleOperationTermProduction posibleOperationTermProduction = new PosibleOperationTermProduction();
+        PossibleOperationTermProduction possibleOperationTermProduction = new PossibleOperationTermProduction();
         public override ExpressionProduction Execute()
         {
-            posibleMinusProduction.Execute();
+            possibleMinusProduction.Execute();
             termProduction.Execute();
-            posibleOperationTermProduction.Execute();
+            possibleOperationTermProduction.Execute();
             return this;
         }
         public override void InitProductions()
         {
-            posibleMinusProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-            posibleOperationTermProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            possibleMinusProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            possibleOperationTermProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
 
         public bool IsValidExpressionBegining(TokenEnum tokenExpected)

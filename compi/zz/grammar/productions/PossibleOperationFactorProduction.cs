@@ -5,12 +5,12 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PosibleOperationFactorProduction : CompoundProduction<PosibleOperationFactorProduction>
+    class PossibleOperationFactorProduction : CompoundProduction<PossibleOperationFactorProduction>
     {
         OperationFactorProduction operationFactorProduction = new OperationFactorProduction();
         FactorProduction factorProduction = new FactorProduction();
 
-        public override PosibleOperationFactorProduction Execute()
+        public override PossibleOperationFactorProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.TIMES || lookingAheadToken.Kind == TokenEnum.SLASH || lookingAheadToken.Kind != TokenEnum.REM)
             {

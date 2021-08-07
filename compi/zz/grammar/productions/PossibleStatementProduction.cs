@@ -5,13 +5,13 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PosibleStatementProduction : CompoundProduction<PosibleStatementProduction>
+    class PossibleStatementProduction : CompoundProduction<PossibleStatementProduction>
     {
 
         private readonly TypeProduction typeProduction = new TypeProduction();
         private readonly StatementProduction statementProduction = new StatementProduction();
 
-        public override PosibleStatementProduction Execute()
+        public override PossibleStatementProduction Execute()
         {
             if (IsValidStatementBegining(lookingAheadToken.Kind))
             {

@@ -4,9 +4,9 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 //TODO: Arreglar los nombres de las proucciones para que se coherente con el resto
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PosibleIdentifiersCommaSeparatedProduction : BaseProduction<PosibleIdentifiersCommaSeparatedProduction>
+    class PossibleIdentifiersCommaSeparatedProduction : BaseProduction<PossibleIdentifiersCommaSeparatedProduction>
     {
-        public override PosibleIdentifiersCommaSeparatedProduction Execute()
+        public override PossibleIdentifiersCommaSeparatedProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.COMMA)
             {

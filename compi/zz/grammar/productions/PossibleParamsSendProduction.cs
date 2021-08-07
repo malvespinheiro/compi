@@ -4,17 +4,16 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PosibleExpressionCommaSeparatedProduction : CompoundProduction<PosibleExpressionCommaSeparatedProduction>
+    class PossibleParamsSendProduction : CompoundProduction<PossibleParamsSendProduction>
     {
         private readonly ExpressionProduction expressionProduction = new ExpressionProduction();
+        private readonly ParamsSendProduction paramsSendProduction  = new ParamsSendProduction();
 
-        public override PosibleExpressionCommaSeparatedProduction Execute()
+        public override PossibleParamsSendProduction Execute()
         {
-            if (lookingAheadToken.Kind == TokenEnum.COMMA)
+            if (lookingAheadToken.Kind == TokenEnum.MINUS || expressionProduction.IsValidExpressionBegining(lookingAheadToken.Kind))
             {
-                Check(TokenEnum.COMMA);
-                expressionProduction.Execute();
-                Execute();
+                paramsSendProduction.Execute();
             }
             return this;
         }
@@ -22,6 +21,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         public override void InitProductions()
         {
             expressionProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            paramsSendProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }
 }

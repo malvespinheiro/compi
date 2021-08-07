@@ -4,10 +4,10 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PosibleConditionFactorProduction : CompoundProduction<PosibleConditionFactorProduction>
+    class PossibleConditionFactorProduction : CompoundProduction<PossibleConditionFactorProduction>
     {
         ConditionFactorProduction conditionFactorProduction = new ConditionFactorProduction();
-        public override PosibleConditionFactorProduction Execute()
+        public override PossibleConditionFactorProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.AND)
             {

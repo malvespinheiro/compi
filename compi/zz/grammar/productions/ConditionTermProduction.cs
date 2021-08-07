@@ -8,17 +8,17 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class ConditionTermProduction : CompoundProduction<ConditionTermProduction>
     {
         ConditionFactorProduction conditionFactorProduction = new ConditionFactorProduction();
-        PosibleConditionFactorProduction posibleConditionFactorProduction = new PosibleConditionFactorProduction();
+        PossibleConditionFactorProduction possibleConditionFactorProduction = new PossibleConditionFactorProduction();
         public override ConditionTermProduction Execute()
         {
             conditionFactorProduction.Execute();
-            posibleConditionFactorProduction.Execute();
+            possibleConditionFactorProduction.Execute();
             return this;
         }
         public override void InitProductions()
         {
             conditionFactorProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-            posibleConditionFactorProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            possibleConditionFactorProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
        
     }

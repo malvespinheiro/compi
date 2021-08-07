@@ -4,11 +4,11 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PosibleTypedIdentifiersCommaSeparatedProduction : CompoundProduction<PosibleTypedIdentifiersCommaSeparatedProduction>
+    class PossibleTypedIdentifiersCommaSeparatedProduction : CompoundProduction<PossibleTypedIdentifiersCommaSeparatedProduction>
     {
         private readonly TypedIdentifierProduction typedIdentifierProduction = new TypedIdentifierProduction();
 
-        public override PosibleTypedIdentifiersCommaSeparatedProduction Execute()
+        public override PossibleTypedIdentifiersCommaSeparatedProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.COMMA)
             {

@@ -8,7 +8,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class RestOfStatementProduction : CompoundProduction<RestOfStatementProduction>
     {
         ExpressionProduction expressionProduction = new ExpressionProduction();
-        PosibleParamsSendProduction posibleParamsSendProduction = new PosibleParamsSendProduction();
+        PossibleParamsSendProduction possibleParamsSendProduction = new PossibleParamsSendProduction();
         public override RestOfStatementProduction Execute()
         {
             switch (lookingAheadToken.Kind)
@@ -23,7 +23,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
                 case TokenEnum.LPAR: 
                     {
                         Check(TokenEnum.LPAR);
-                        posibleParamsSendProduction.Execute();
+                        possibleParamsSendProduction.Execute();
                         Check(TokenEnum.RPAR);
                         break;
                     }
@@ -43,7 +43,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         public override void InitProductions()
         {
             expressionProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-            posibleParamsSendProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            possibleParamsSendProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }
 }

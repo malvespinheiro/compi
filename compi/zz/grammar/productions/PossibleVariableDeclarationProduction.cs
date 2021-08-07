@@ -5,7 +5,7 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PosibleVariableDeclarationProduction : CompoundProduction<PosibleVariableDeclarationProduction>
+    class PossibleVariableDeclarationProduction : CompoundProduction<PossibleVariableDeclarationProduction>
     {
         private readonly VariableDeclarationProduction variableDeclarationProduction = new VariableDeclarationProduction();
 
@@ -14,7 +14,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             variableDeclarationProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
 
         }
-        public override PosibleVariableDeclarationProduction Execute()
+        public override PossibleVariableDeclarationProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.IDENT)
             {

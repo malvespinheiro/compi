@@ -5,14 +5,14 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PosibleDeclarationProduction : CompoundProduction<PosibleDeclarationProduction>
+    class PossibleDeclarationProduction : CompoundProduction<PossibleDeclarationProduction>
     {
         private readonly DeclarationProduction declarationProduction = new DeclarationProduction();
         public override void InitProductions()
         {
             this.declarationProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
-        public override PosibleDeclarationProduction Execute()
+        public override PossibleDeclarationProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.CONST || lookingAheadToken.Kind == TokenEnum.IDENT || lookingAheadToken.Kind == TokenEnum.CLASS)
             {

@@ -7,7 +7,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class VariableDeclarationProduction : CompoundProduction<VariableDeclarationProduction>
     {
         private readonly TypedIdentifierProduction typedIdentifierProduction = new TypedIdentifierProduction();
-        private readonly PosibleIdentifiersCommaSeparatedProduction posibleIdentifiersCommaSeparatedProduction = new PosibleIdentifiersCommaSeparatedProduction();
+        private readonly PossibleIdentifiersCommaSeparatedProduction possibleIdentifiersCommaSeparatedProduction = new PossibleIdentifiersCommaSeparatedProduction();
 
         private SymbolKind symbolKind;
         public VariableDeclarationProduction SetAttributes(SymbolKind symbolKind)
@@ -19,7 +19,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         public override VariableDeclarationProduction Execute()
         {
             typedIdentifierProduction.Execute();
-            posibleIdentifiersCommaSeparatedProduction.Execute();
+            possibleIdentifiersCommaSeparatedProduction.Execute();
             Check(TokenEnum.SEMICOLON);
             return this;
         }
@@ -27,7 +27,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         public override void InitProductions()
         {
             typedIdentifierProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-            posibleIdentifiersCommaSeparatedProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            possibleIdentifiersCommaSeparatedProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }
 }

@@ -5,7 +5,7 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PosibleElseProduction : CompoundProduction<PosibleElseProduction>
+    class PossibleElseProduction : CompoundProduction<PossibleElseProduction>
     {
         private readonly StatementProduction statementProduction = new StatementProduction();
 
@@ -13,7 +13,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         {
             statementProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
-        public override PosibleElseProduction Execute()
+        public override PossibleElseProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.ELSE)
             {

@@ -61,7 +61,7 @@
                 case SymbolKind.Local: symbol.adr = TopScope.nLocs++; break;
             }
 
-            BaseSymbol foundSymbol = FindFromBaseSymbol(symbol.name, TopScope.Locals);
+            BaseSymbol foundSymbol = FindFromBaseSymbol(symbol.name, TopScope.locals);
             if (foundSymbol.kind == noSym.kind)
             {
                 // TODO: El elemento ya esta declarado, registrar un error o lanzar exceptions
@@ -70,7 +70,7 @@
             BaseSymbol lastSymbol = FindLastSymbol();
 
             if (lastSymbol == null)
-                TopScope.Locals = symbol;
+                TopScope.locals = symbol;
             else
                 lastSymbol.next = symbol;
 
@@ -79,8 +79,8 @@
 
         private BaseSymbol FindLastSymbol()
         {
-            BaseSymbol currentSymbol = TopScope.Locals;
-            BaseSymbol lastSymbol = TopScope.Locals;
+            BaseSymbol currentSymbol = TopScope.locals;
+            BaseSymbol lastSymbol = TopScope.locals;
             while (currentSymbol != null)
             {
                 lastSymbol = currentSymbol;
@@ -92,7 +92,7 @@
         public BaseSymbol Find(string name)
         { 
             for (BaseScope s = TopScope; s != null; s = s.outer)
-                for (BaseSymbol sym = s.Locals; sym != null; sym = sym.next)
+                for (BaseSymbol sym = s.locals; sym != null; sym = sym.next)
                     if (sym.name == name)
                         return sym;
             return noSym;

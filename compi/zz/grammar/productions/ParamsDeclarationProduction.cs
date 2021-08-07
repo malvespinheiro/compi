@@ -7,7 +7,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class ParamsDeclarationProduction : CompoundProduction<ParamsDeclarationProduction>
     {
         private readonly TypedIdentifierProduction typedIdentifierProduction= new TypedIdentifierProduction();
-        private readonly PosibleTypedIdentifiersCommaSeparatedProduction posibleTypedIdentifiersCommaSeparatedProduction = new PosibleTypedIdentifiersCommaSeparatedProduction();
+        private readonly PossibleTypedIdentifiersCommaSeparatedProduction possibleTypedIdentifiersCommaSeparatedProduction = new PossibleTypedIdentifiersCommaSeparatedProduction();
 
         private SymbolKind symbolKind;
 
@@ -20,7 +20,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         public override void InitProductions()
         {
             typedIdentifierProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-            posibleTypedIdentifiersCommaSeparatedProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            possibleTypedIdentifiersCommaSeparatedProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
 
         }
         public override ParamsDeclarationProduction Execute()
@@ -28,7 +28,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             if (lookingAheadToken.Kind == TokenEnum.IDENT)
             {
                 typedIdentifierProduction.Execute();
-                posibleTypedIdentifiersCommaSeparatedProduction.Execute();
+                possibleTypedIdentifiersCommaSeparatedProduction.Execute();
             }
             return this;
         }

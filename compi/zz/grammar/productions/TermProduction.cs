@@ -8,7 +8,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class TermProduction : CompoundProduction<TermProduction>
     {
         FactorProduction factorProduction = new FactorProduction();
-        PosibleOperationFactorProduction posibleOperationFactorProduction = new PosibleOperationFactorProduction();
+        PossibleOperationFactorProduction possibleOperationFactorProduction = new PossibleOperationFactorProduction();
         public override TermProduction Execute()
         {
             if (!IsValidTermBegining(lookingAheadToken.Kind))
@@ -17,14 +17,14 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             }
 
             factorProduction.Execute();
-            posibleOperationFactorProduction.Execute();
+            possibleOperationFactorProduction.Execute();
             
             return this;
         }
         public override void InitProductions()
         {
             factorProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-            posibleOperationFactorProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            possibleOperationFactorProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
 
         public bool IsValidTermBegining(TokenEnum tokenKind)

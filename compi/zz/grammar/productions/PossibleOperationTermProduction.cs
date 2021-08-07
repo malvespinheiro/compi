@@ -5,11 +5,11 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PosibleOperationTermProduction : CompoundProduction<PosibleOperationTermProduction>
+    class PossibleOperationTermProduction : CompoundProduction<PossibleOperationTermProduction>
     {
         OperationTermProduction operationTermProduction = new OperationTermProduction();
         TermProduction termProduction = new TermProduction();
-        public override PosibleOperationTermProduction Execute()
+        public override PossibleOperationTermProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.PLUS || lookingAheadToken.Kind == TokenEnum.MINUS)
             {

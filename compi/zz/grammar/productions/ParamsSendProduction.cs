@@ -7,19 +7,19 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class ParamsSendProduction : CompoundProduction<ParamsSendProduction>
     {
         private readonly ExpressionProduction expressionProduction = new ExpressionProduction();
-        private readonly PosibleExpressionCommaSeparatedProduction posibleExpressionCommaSeparatedProduction = new PosibleExpressionCommaSeparatedProduction();
+        private readonly PossibleExpressionCommaSeparatedProduction possibleExpressionCommaSeparatedProduction = new PossibleExpressionCommaSeparatedProduction();
 
         public override ParamsSendProduction Execute()
         {
             expressionProduction.Execute();
-            posibleExpressionCommaSeparatedProduction.Execute();
+            possibleExpressionCommaSeparatedProduction.Execute();
             return this;
         }
 
         public override void InitProductions()
         {
             expressionProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-            posibleExpressionCommaSeparatedProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            possibleExpressionCommaSeparatedProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         private readonly TypeOrVoidProduction typeOrVoidProduction = new TypeOrVoidProduction();
         private readonly VariableDeclarationProduction variableDeclarationProduction = new VariableDeclarationProduction();
         private readonly ParamsDeclarationProduction paramsDeclarationProduction = new ParamsDeclarationProduction();
-        private readonly PosibleVariableDeclarationProduction posibleVariableDeclarationProduction  = new PosibleVariableDeclarationProduction();
+        private readonly PossibleVariableDeclarationProduction possibleVariableDeclarationProduction  = new PossibleVariableDeclarationProduction();
         private readonly BlockProduction blockProduction = new BlockProduction();
 
         BaseSymbol currentMethod;
@@ -21,7 +21,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             Check(TokenEnum.LPAR);
             paramsDeclarationProduction.Execute();
             Check(TokenEnum.RPAR);
-            posibleVariableDeclarationProduction.Execute();
+            possibleVariableDeclarationProduction.Execute();
             blockProduction.Execute();
             return this;
         }
@@ -31,7 +31,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             typeOrVoidProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             variableDeclarationProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             paramsDeclarationProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-            posibleVariableDeclarationProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            possibleVariableDeclarationProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             blockProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
     }

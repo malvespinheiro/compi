@@ -9,7 +9,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
 
         private readonly RestOfStatementProduction restOfStatementProduction = new RestOfStatementProduction();
-        private readonly PosibleElseProduction posibleElseProduction = new PosibleElseProduction();
+        private readonly PossibleElseProduction possibleElseProduction = new PossibleElseProduction();
         private readonly BlockProduction blockProduction = new BlockProduction();
         private readonly ExpressionProduction expressionProduction = new ExpressionProduction();
         private readonly ConditionProduction conditionProduction = new ConditionProduction();
@@ -38,7 +38,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
                         conditionProduction.Execute();
                         Check(TokenEnum.RPAR);
                         Execute();
-                        posibleElseProduction.Execute();
+                        possibleElseProduction.Execute();
                         break;
                     }
                 case TokenEnum.WHILE:
@@ -143,7 +143,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         public override void InitProductions()
         {
             restOfStatementProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-            posibleElseProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
+            possibleElseProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             blockProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             stringOrExpressionProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
             conditionProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
