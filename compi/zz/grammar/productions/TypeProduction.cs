@@ -5,6 +5,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
     class TypeProduction : CheckedBeganProduction<TypeProduction>
     {
+        public TypeProduction()
+            : base(5, "Type", "ident") { }
         public override TypeProduction Execute()
         {
             Check(TokenEnum.IDENT);

@@ -6,6 +6,8 @@ namespace unsj.fcefn.compiladores.compi.basis
 {
     abstract class CheckedBeganProduction<TProduction> : BaseProduction<TProduction>
     {
+        public CheckedBeganProduction(int number, string name, string description)
+            :base(number, name, description) { }
         public abstract bool ValidBegin(TokenEnum tokenExpected);
     }
 }

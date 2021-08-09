@@ -7,6 +7,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
     class NumberOrCharConstantProduction : BaseProduction<NumberOrCharConstantProduction>
     {
+        public NumberOrCharConstantProduction()
+            : base(6, "NumberOrCharConstant", "number | charConst") { }
         public override NumberOrCharConstantProduction Execute()
         {
             switch (lookingAheadToken.Kind)

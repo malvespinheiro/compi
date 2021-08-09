@@ -6,6 +6,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class TypedIdentifierProduction : CompoundAndCheckedProduction<TypedIdentifierProduction>
     {
         private readonly TypeProduction typeProduction = new TypeProduction();
+        public TypedIdentifierProduction()
+            : base(4, "TypedIdentifier", "Type ident") { }
         public override TypedIdentifierProduction Execute()
         {
             typeProduction.Execute();

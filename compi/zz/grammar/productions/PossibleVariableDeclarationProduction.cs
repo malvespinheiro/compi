@@ -6,11 +6,12 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class PossibleVariableDeclarationProduction : CompoundProduction<PossibleVariableDeclarationProduction>
     {
         private readonly VariableDeclarationProduction variableDeclarationProduction = new VariableDeclarationProduction();
+        public PossibleVariableDeclarationProduction()
+            : base(14, "PossibleVariableDeclaration", " . | VariableDeclaration PosibleVariableDeclaration") { }
 
         public override void InitProductions()
         {
             variableDeclarationProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-
         }
         public override PossibleVariableDeclarationProduction Execute()
         {

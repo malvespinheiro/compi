@@ -9,6 +9,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         private readonly ParamsDeclarationProduction paramsDeclarationProduction = new ParamsDeclarationProduction();
         private readonly PossibleVariableDeclarationProduction possibleVariableDeclarationProduction  = new PossibleVariableDeclarationProduction();
         private readonly BlockProduction blockProduction = new BlockProduction();
+        public MethodDeclarationProduction()
+            : base(10, "MethodDeclaration", "TypeOrVoid  ident \"(\" ParamsDeclaration \")\" PosibleVariableDeclaration Block") { }
         public override MethodDeclarationProduction Execute()
         {
             typeOrVoidProduction.Execute();

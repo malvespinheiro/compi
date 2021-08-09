@@ -7,7 +7,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class PossibleExpressionCommaSeparatedProduction : CompoundProduction<PossibleExpressionCommaSeparatedProduction>
     {
         private readonly ExpressionProduction expressionProduction = new ExpressionProduction();
-
+        public PossibleExpressionCommaSeparatedProduction()
+            : base(26, "PossibleExpressionCommaSeparated", " . | \",\" Expression") { }
         public override PossibleExpressionCommaSeparatedProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.COMMA)

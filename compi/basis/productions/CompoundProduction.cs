@@ -6,6 +6,8 @@ namespace unsj.fcefn.compiladores.compi.basis
 {
     abstract class CompoundProduction<TProduction> : BaseProduction<TProduction>
     {
+        public CompoundProduction(int number, string name, string description)
+            : base(number, name, description) { }
         public abstract void InitProductions();
 
         public override void Init(

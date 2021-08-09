@@ -4,6 +4,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class PossibleStatementProduction : CompoundProduction<PossibleStatementProduction>
     {
         private readonly StatementProduction statementProduction = new StatementProduction();
+        public PossibleStatementProduction()
+            : base(16, "PossibleStatement", " . | Statement PosibleStatement") { }
         public override PossibleStatementProduction Execute()
         {
             if (statementProduction.ValidBegin(lookingAheadToken.Kind))

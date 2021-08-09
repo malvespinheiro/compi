@@ -7,6 +7,8 @@ namespace unsj.fcefn.compiladores.compi.basis
 {
     abstract class BaseProduction<TProduction> : IProduction<TProduction>
     {
+        protected int number;
+        protected string name;
         protected string description;
         protected Token currentToken;
         protected Token lookingAheadToken;
@@ -14,6 +16,12 @@ namespace unsj.fcefn.compiladores.compi.basis
         protected BaseSymbolTable symbolTable;
         protected ErrorHandler errorHandler;
 
+        public BaseProduction(int number, string name, string description)
+        {
+            this.number = number;
+            this.name = name;
+            this.description = description;
+        }
         public string Description { get => description; set => description = value; }
 
         public abstract TProduction Execute();
@@ -48,6 +56,11 @@ namespace unsj.fcefn.compiladores.compi.basis
         {
             currentToken = lookingAheadToken;
             lookingAheadToken = scanner.Next();
+        }
+
+        public override string ToString()
+        {
+            return number + ". " + name + " = " + description;
         }
     }
 }

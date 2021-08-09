@@ -8,7 +8,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         private readonly ConstantDeclarationProduction constantDeclarationProduction = new ConstantDeclarationProduction();
         private readonly VariableDeclarationProduction variableDeclarationProduction = new VariableDeclarationProduction();
-
+        public DeclarationProduction()
+            : base(2, "Declaration", "ConstantDeclaration | VariableDeclaration") { }
         public override void InitProductions()
         {
             constantDeclarationProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);

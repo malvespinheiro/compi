@@ -5,6 +5,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
     class PossibleIdentifiersCommaSeparatedProduction : BaseProduction<PossibleIdentifiersCommaSeparatedProduction>
     {
+        public PossibleIdentifiersCommaSeparatedProduction()
+            : base(8, "PossibleIdentifiersCommaSeparated", " . | \",\" ident PossibleIdentifiersCommaSeparated") { }
         public override PossibleIdentifiersCommaSeparatedProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.COMMA)

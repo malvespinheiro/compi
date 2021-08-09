@@ -5,6 +5,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
     class PossibleMinusProduction : CheckedBeganProduction<PossibleMinusProduction>
     {
+        public PossibleMinusProduction()
+            : base(20, "PossibleMinus", "") { }
         public override PossibleMinusProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.MINUS)

@@ -1,6 +1,4 @@
-﻿using compi.basis.symbolTable;
-using unsj.fcefn.compiladores.compi.basis;
-using unsj.fcefn.compiladores.compi.basis.language.token;
+﻿using unsj.fcefn.compiladores.compi.basis;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
@@ -8,14 +6,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         private readonly TypedIdentifierProduction typedIdentifierProduction= new TypedIdentifierProduction();
         private readonly PossibleTypedIdentifiersCommaSeparatedProduction possibleTypedIdentifiersCommaSeparatedProduction = new PossibleTypedIdentifiersCommaSeparatedProduction();
-
-        private SymbolKind symbolKind;
-
-        public ParamsDeclarationProduction SetAttributes(SymbolKind symbolKind)
-        {
-            this.symbolKind = symbolKind;
-            return this;
-        }
+        public ParamsDeclarationProduction()
+            : base(12, "ParamsDeclaration", " . | TypedIdentifier PosibleTypedIdentifiersCommaSeparated") { }
 
         public override void InitProductions()
         {

@@ -9,6 +9,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         ExpressionProduction expressionProduction = new ExpressionProduction();
         PossibleParamsSendProduction possibleParamsSendProduction = new PossibleParamsSendProduction();
+        public RestOfStatementProduction()
+            : base(18, "RestOfStatement", "\" = \" Expression | \"(\" PosibleParamsSend \")\" | \"++\" | \"--\"") { }
         public override RestOfStatementProduction Execute()
         {
             switch (lookingAheadToken.Kind)

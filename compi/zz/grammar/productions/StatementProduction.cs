@@ -12,7 +12,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         private readonly BlockProduction blockProduction = new BlockProduction();
         private readonly ExpressionProduction expressionProduction = new ExpressionProduction();
         private readonly StringOrExpressionProduction stringOrExpressionProduction = new StringOrExpressionProduction();
-
+        public StatementProduction()
+            : base(17, "Statement", "ident RestOfStatement \";\" | \"if\" \"(\" Condition \")\" Statement ElseOpc | \"while\" \"(\" Condition \")\" Block | \"break\" \";\" | \"return\" [Expression] \";\" | \"read\" \"(\" ident \")\" \";\" | \"write\" \"(\" Expression[\",\" number] \")\" \";\" | Block | \";\"") { }
         public override StatementProduction Execute()
         {
             switch (lookingAheadToken.Kind)

@@ -7,6 +7,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         private readonly TypedIdentifierProduction typedIdentifierProduction = new TypedIdentifierProduction();
         private readonly NumberOrCharConstantProduction numberOrCharConstantProduction = new NumberOrCharConstantProduction();
+        public ConstantDeclarationProduction()
+            : base(3, "ConstantDeclaration", "\"const\" TypedIdentifier \"=\" NumberOrCharConst \";\"") { }
         public override ConstantDeclarationProduction Execute()
         {
             Check(TokenEnum.CONST);

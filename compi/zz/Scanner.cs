@@ -328,6 +328,8 @@ namespace unsj.fcefn.compiladores.compi.zz
                 NextCharacter();
             }
             if (keywords.IsKeyword(token.StringRepresentation))
+            {
+
                 switch (token.StringRepresentation)
                 {
                     case "break":
@@ -363,15 +365,20 @@ namespace unsj.fcefn.compiladores.compi.zz
                     case "writeln":
                         token.Kind = TokenEnum.WRITELN;
                         break;
-
                 }
+            }
             else
             {
-                token.Kind = TokenEnum.IDENT;
+                if (token.StringRepresentation == "program")
+                {
+                    token.Kind = TokenEnum.PROGRAM;
+                }
+                else
+                {
+                    token.Kind = TokenEnum.IDENT;
+                }
             }
-
         }
-
         private void ReadNumber(Token t)
         {
             while (currentCharacter >= '0' && currentCharacter <= '9' && currentCharacter != EOF)
@@ -379,8 +386,8 @@ namespace unsj.fcefn.compiladores.compi.zz
                 t.StringRepresentation = t.StringRepresentation + currentCharacter;
                 NextCharacter();
             }
-
             if (t.StringRepresentation != null)
+            {
                 try
                 {
                     t.NumericalRepresentation = Int16.Parse(t.StringRepresentation );
@@ -390,6 +397,7 @@ namespace unsj.fcefn.compiladores.compi.zz
                 {
                     throw new ScannerException(ErrorMessages.wrongFormatNumber + currentCharacter.ToString());
                 }
+            }
         }
     }
 }

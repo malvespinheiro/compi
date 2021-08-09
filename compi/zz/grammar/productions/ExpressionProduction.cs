@@ -8,6 +8,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         PossibleMinusProduction possibleMinusProduction = new PossibleMinusProduction();
         TermProduction termProduction = new TermProduction();
         PossibleOperationTermProduction possibleOperationTermProduction = new PossibleOperationTermProduction();
+        public ExpressionProduction()
+            : base(18, "Expression", "PosibleMinus Term PosibleOperationTerm") { }
         public override ExpressionProduction Execute()
         {
             possibleMinusProduction.Execute();

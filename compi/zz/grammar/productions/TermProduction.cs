@@ -9,6 +9,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         FactorProduction factorProduction = new FactorProduction();
         PossibleOperationFactorProduction possibleOperationFactorProduction = new PossibleOperationFactorProduction();
+        public TermProduction()
+            : base(21, "Term", "Factor PosibleOperationFactor") { }
         public override TermProduction Execute()
         {
             if (!ValidBegin(lookingAheadToken.Kind))

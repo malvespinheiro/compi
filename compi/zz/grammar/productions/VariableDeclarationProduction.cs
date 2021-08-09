@@ -7,6 +7,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         private readonly TypedIdentifierProduction typedIdentifierProduction = new TypedIdentifierProduction();
         private readonly PossibleIdentifiersCommaSeparatedProduction possibleIdentifiersCommaSeparatedProduction = new PossibleIdentifiersCommaSeparatedProduction();
+        public VariableDeclarationProduction()
+            : base(7, "VariableDeclaration", "TypedIdentifier PossibleIdentifiersCommaSeparated \";\"") { }
         public override VariableDeclarationProduction Execute()
         {
             typedIdentifierProduction.Execute();
