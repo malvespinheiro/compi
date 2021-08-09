@@ -6,7 +6,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class PossibleElseProduction : CompoundProduction<PossibleElseProduction>
     {
         private readonly StatementProduction statementProduction = new StatementProduction();
-
+        public PossibleElseProduction()
+            : base(31, "PossibleElse", " . | \"else\" Statement") { }
         public override void InitProductions()
         {
             statementProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);

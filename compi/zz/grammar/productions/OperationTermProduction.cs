@@ -5,9 +5,10 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class OperationTermProduction : CompoundProduction<OperationTermProduction>
+    class OperationTermProduction : BaseProduction<OperationTermProduction>
     {
-        FactorProduction factorProduction = new FactorProduction();
+        public OperationTermProduction()
+            : base(28, "OperationTerm", "\"+\" | \"-\"") { }
         public override OperationTermProduction Execute()
         {
             if (lookingAheadToken.Kind != TokenEnum.PLUS && lookingAheadToken.Kind != TokenEnum.MINUS)
@@ -30,26 +31,6 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
                 }
             }
             return this;
-        }
-        public override void InitProductions()
-        {
-            factorProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
-        }
-
-        private bool IsValidTermBegining(TokenEnum tokenKind)
-        {
-            if (tokenKind == TokenEnum.IDENT)
-                return true;
-            if (tokenKind == TokenEnum.NUMBER)
-                return true;
-            if(tokenKind == TokenEnum.CHARCONST)
-                return true;
-            if(tokenKind == TokenEnum.NEW)
-                return true;
-            if(tokenKind == TokenEnum.LPAR)
-                return true;
-
-            return false;
         }
     }
 }

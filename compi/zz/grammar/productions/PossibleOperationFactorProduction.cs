@@ -9,7 +9,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         OperationFactorProduction operationFactorProduction = new OperationFactorProduction();
         FactorProduction factorProduction = new FactorProduction();
-
+        public PossibleOperationFactorProduction()
+            : base(21, "PossibleOperationFactor", " . |  OperationFactor Factor") { }
         public override PossibleOperationFactorProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.TIMES || lookingAheadToken.Kind == TokenEnum.SLASH || lookingAheadToken.Kind != TokenEnum.REM)

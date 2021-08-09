@@ -8,6 +8,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class OperationFactorProduction : CompoundProduction<OperationFactorProduction>
     {
         FactorProduction factorProduction = new FactorProduction();
+        public OperationFactorProduction()
+            : base(30, "OperationFactor", "\"*\" | \"/\" | \"%\"") { }
         public override OperationFactorProduction Execute()
         {
             if (lookingAheadToken.Kind != TokenEnum.TIMES && lookingAheadToken.Kind != TokenEnum.SLASH && lookingAheadToken.Kind != TokenEnum.REM)

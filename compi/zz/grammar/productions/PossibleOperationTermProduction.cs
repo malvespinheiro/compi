@@ -1,6 +1,4 @@
-﻿using compi.basis.symbolTable;
-using unsj.fcefn.compiladores.compi.basis;
-using unsj.fcefn.compiladores.compi.basis.exceptions;
+﻿using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
@@ -9,6 +7,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         OperationTermProduction operationTermProduction = new OperationTermProduction();
         TermProduction termProduction = new TermProduction();
+        public PossibleOperationTermProduction()
+            : base(21, "PossibleOperationTerm", " . | OperationTerm Term PosibleOperationTerm") { }
         public override PossibleOperationTermProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.PLUS || lookingAheadToken.Kind == TokenEnum.MINUS)

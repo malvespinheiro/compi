@@ -8,6 +8,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class StringOrExpressionProduction : CompoundProduction<StringOrExpressionProduction>
     {
         ExpressionProduction expressionProduction = new ExpressionProduction();
+        public StringOrExpressionProduction()
+            : base(32, "StringOrExpression", "string | Expression") { }
         public override StringOrExpressionProduction Execute()
         {
             if (expressionProduction.ValidBegin(lookingAheadToken.Kind))
