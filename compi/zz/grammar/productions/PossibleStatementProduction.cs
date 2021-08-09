@@ -5,7 +5,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         private readonly StatementProduction statementProduction = new StatementProduction();
         public PossibleStatementProduction()
-            : base(16, "PossibleStatement", " . | Statement PosibleStatement") { }
+            : base(16, "PossibleStatement", " . | Statement PossibleStatement") { }
         public override PossibleStatementProduction Execute()
         {
             if (statementProduction.ValidBegin(lookingAheadToken.Kind))

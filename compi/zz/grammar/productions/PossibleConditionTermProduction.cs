@@ -6,6 +6,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class PossibleConditionTermProduction : CompoundProduction<PossibleConditionTermProduction>
     {
         ConditionTermProduction conditionTermProduction = new ConditionTermProduction();
+        public PossibleConditionTermProduction()
+            : base(35, "PossibleConditionTerm", " . | ConditionTerm") { }
         public override PossibleConditionTermProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.OR)

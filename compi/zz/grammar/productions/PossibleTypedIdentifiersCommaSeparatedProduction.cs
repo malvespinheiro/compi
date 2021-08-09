@@ -8,7 +8,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         private readonly TypedIdentifierProduction typedIdentifierProduction = new TypedIdentifierProduction();
         public PossibleTypedIdentifiersCommaSeparatedProduction()
-            : base(13, "PossibleTypedIdentifiersCommaSeparated", " . |  \", \" TypedIdentifier PosibleTypedIdentifiersCommaSeparated") { }
+            : base(13, "PossibleTypedIdentifiersCommaSeparated", " . |  \", \" TypedIdentifier PossibleTypedIdentifiersCommaSeparated") { }
         public override PossibleTypedIdentifiersCommaSeparatedProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.COMMA)

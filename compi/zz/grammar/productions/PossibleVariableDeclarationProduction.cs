@@ -7,7 +7,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         private readonly VariableDeclarationProduction variableDeclarationProduction = new VariableDeclarationProduction();
         public PossibleVariableDeclarationProduction()
-            : base(14, "PossibleVariableDeclaration", " . | VariableDeclaration PosibleVariableDeclaration") { }
+            : base(14, "PossibleVariableDeclaration", " . | VariableDeclaration PossibleVariableDeclaration") { }
 
         public override void InitProductions()
         {

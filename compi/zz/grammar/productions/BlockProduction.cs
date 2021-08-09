@@ -9,7 +9,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         private readonly PossibleStatementProduction possibleStatementProduction = new PossibleStatementProduction();
         public BlockProduction()
-            : base(15, "Block", "\"{\"PosibleStatement\"}\"") { }
+            : base(15, "Block", "\"{\"PossibleStatement\"}\"") { }
         public override BlockProduction Execute()
         {
             Check(TokenEnum.LBRACE);

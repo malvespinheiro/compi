@@ -6,7 +6,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         private readonly DeclarationProduction declarationProduction = new DeclarationProduction();
         public PossibleDeclarationProduction()
-            : base(1, "PosibleDeclaration", " . | Declaration  PosibleDeclaration") { }
+            : base(1, "PossibleDeclaration", " . | Declaration  PossibleDeclaration") { }
         public override void InitProductions()
         {
             this.declarationProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);

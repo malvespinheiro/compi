@@ -8,7 +8,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         private readonly PossibleDeclarationProduction possibleDeclarationProduction = new PossibleDeclarationProduction();
         private readonly PossibleMethodDeclarationProduction possibleMethodDeclarationProduction = new PossibleMethodDeclarationProduction();
         public ProgramProduction()
-            : base(0, "Program", "\"program \" ident PosibleDeclaration \"{\" PosibleMethodDeclaration \"}\"") { }
+            : base(0, "Program", "\"program \" ident PossibleDeclaration \"{\" PossibleMethodDeclaration \"}\"") { }
         public override void InitProductions()
         {
             this.possibleDeclarationProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);

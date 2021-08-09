@@ -6,6 +6,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         ExpressionProduction expressionProduction = new ExpressionProduction();
         RelationalOperatorProduction relationalOperatorProduction = new RelationalOperatorProduction();
+        public ConditionFactorProduction()
+            : base(36, "ConditionFactor", "Expression RelationalOperator Expression") { }
         public override ConditionFactorProduction Execute()
         {
             expressionProduction.Execute();

@@ -6,6 +6,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         ConditionFactorProduction conditionFactorProduction = new ConditionFactorProduction();
         PossibleConditionFactorProduction possibleConditionFactorProduction = new PossibleConditionFactorProduction();
+        public ConditionTermProduction()
+            : base(34, "ConditionTerm", "ConditionFactor PossibleConditionFactor") { }
         public override ConditionTermProduction Execute()
         {
             conditionFactorProduction.Execute();

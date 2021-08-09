@@ -9,7 +9,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         PossibleRestOfMethodCallProduction possibleRestOfMethodCallProduction = new PossibleRestOfMethodCallProduction();
         ExpressionProduction expressionProduction = new ExpressionProduction();
         public FactorProduction()
-            : base(22, "Factor", "ident PosibleRestOfMethodCall | number | \"(\" Expression \")\"") { }
+            : base(22, "Factor", "ident PossibleRestOfMethodCall | number | \"(\" Expression \")\"") { }
         public override FactorProduction Execute()
         {
             switch (lookingAheadToken.Kind)

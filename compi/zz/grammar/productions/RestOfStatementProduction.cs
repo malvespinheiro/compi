@@ -10,7 +10,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         ExpressionProduction expressionProduction = new ExpressionProduction();
         PossibleParamsSendProduction possibleParamsSendProduction = new PossibleParamsSendProduction();
         public RestOfStatementProduction()
-            : base(18, "RestOfStatement", "\" = \" Expression | \"(\" PosibleParamsSend \")\" | \"++\" | \"--\"") { }
+            : base(18, "RestOfStatement", "\" = \" Expression | \"(\" PossibleParamsSend \")\" | \"++\" | \"--\"") { }
         public override RestOfStatementProduction Execute()
         {
             switch (lookingAheadToken.Kind)

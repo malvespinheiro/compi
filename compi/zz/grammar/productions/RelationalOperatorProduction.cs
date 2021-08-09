@@ -6,6 +6,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
     class RelationalOperatorProduction : BaseProduction<RelationalOperatorProduction>
     {
+        public RelationalOperatorProduction()
+            : base(38, "RelationalOperator", "\" == \" | \" != \" | \" > \" | \" >= \" | \" < \" | \" <= \"") { }
         public override RelationalOperatorProduction Execute()
         {
             switch (lookingAheadToken.Kind)

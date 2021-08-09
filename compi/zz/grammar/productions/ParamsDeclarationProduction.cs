@@ -7,7 +7,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         private readonly TypedIdentifierProduction typedIdentifierProduction= new TypedIdentifierProduction();
         private readonly PossibleTypedIdentifiersCommaSeparatedProduction possibleTypedIdentifiersCommaSeparatedProduction = new PossibleTypedIdentifiersCommaSeparatedProduction();
         public ParamsDeclarationProduction()
-            : base(12, "ParamsDeclaration", " . | TypedIdentifier PosibleTypedIdentifiersCommaSeparated") { }
+            : base(12, "ParamsDeclaration", " . | TypedIdentifier PossibleTypedIdentifiersCommaSeparated") { }
 
         public override void InitProductions()
         {

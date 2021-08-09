@@ -6,6 +6,8 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     class PossibleConditionFactorProduction : CompoundProduction<PossibleConditionFactorProduction>
     {
         ConditionFactorProduction conditionFactorProduction = new ConditionFactorProduction();
+        public PossibleConditionFactorProduction()
+            : base(37, "PossibleConditionFactor", " . | ConditionFactor") { }
         public override PossibleConditionFactorProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.AND)

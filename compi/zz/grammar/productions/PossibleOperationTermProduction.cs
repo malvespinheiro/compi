@@ -8,7 +8,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         OperationTermProduction operationTermProduction = new OperationTermProduction();
         TermProduction termProduction = new TermProduction();
         public PossibleOperationTermProduction()
-            : base(21, "PossibleOperationTerm", " . | OperationTerm Term PosibleOperationTerm") { }
+            : base(21, "PossibleOperationTerm", " . | OperationTerm Term PossibleOperationTerm") { }
         public override PossibleOperationTermProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.PLUS || lookingAheadToken.Kind == TokenEnum.MINUS)

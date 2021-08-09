@@ -7,7 +7,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         PossibleParamsSendProduction possibleParamsSendProduction = new PossibleParamsSendProduction();
         public PossibleRestOfMethodCallProduction()
-            : base(23, "PossibleRestOfMethodCall", " . |  \"(\" PosibleParamsSend \")\"") { }
+            : base(23, "PossibleRestOfMethodCall", " . |  \"(\" PossibleParamsSend \")\"") { }
         public override PossibleRestOfMethodCallProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.LPAR)
