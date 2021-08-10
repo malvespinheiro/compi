@@ -37,6 +37,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -76,6 +78,12 @@
     <Compile Include="basis\symbolTable\StructKind.cs" />
     <Compile Include="basis\symbolTable\SymbolKind.cs" />
     <Compile Include="basis\symbolTable\BaseSymbol.cs" />
+    <Compile Include="ui\view\panel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ui\view\panel.Designer.cs">
+      <DependentUpon>panel.cs</DependentUpon>
+    </Compile>
     <Compile Include="zz\grammar\productions\PossibleConditionTermProduction.cs" />
     <Compile Include="zz\grammar\productions\PossibleConditionFactorProduction.cs" />
     <Compile Include="zz\grammar\productions\RelationalOperatorProduction.cs" />
@@ -150,6 +158,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="ui\view\panel.resx">
+      <DependentUpon>panel.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -158,6 +169,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ui\evetHandler\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
