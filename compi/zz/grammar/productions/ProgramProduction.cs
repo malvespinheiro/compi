@@ -1,4 +1,5 @@
-﻿using unsj.fcefn.compiladores.compi.basis;
+﻿using compi.basis.symbolTable;
+using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
@@ -19,10 +20,17 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         {
             Check(TokenEnum.PROGRAM);
             Check(TokenEnum.IDENT);
+
+            BaseSymbol progamSymbol = symbolTable.Insert(SymbolKind.Program, currentToken.StringRepresentation, symbolTable.noType);
+            symbolTable.OpenScope();
+            
             possibleDeclarationProduction.Execute();
             Check(TokenEnum.LBRACE);
             possibleMethodDeclarationProduction.Execute();
             Check(TokenEnum.RBRACE);
+
+            symbolTable.CloseScope(ref progamSymbol);
+
             return this;
         }
     }

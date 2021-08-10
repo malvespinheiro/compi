@@ -11,8 +11,6 @@
         public BaseStruct type;
         public BaseSymbol next;
         public BaseSymbol locals;
-        internal BaseSymbol Locals { get => locals; set => locals = value; }
-
         public BaseSymbol(SymbolKind kind, string name, BaseStruct type)
         {
             this.kind = kind;

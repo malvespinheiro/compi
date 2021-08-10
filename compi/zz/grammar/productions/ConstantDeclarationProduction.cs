@@ -1,4 +1,5 @@
-﻿using unsj.fcefn.compiladores.compi.basis;
+﻿using compi.basis.symbolTable;
+using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
@@ -11,8 +12,12 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             : base(3, "ConstantDeclaration", "\"const\" TypedIdentifier \"=\" NumberOrCharConst \";\"") { }
         public override ConstantDeclarationProduction Execute()
         {
+            //TODO: Obtener el tipo del type
             Check(TokenEnum.CONST);
             typedIdentifierProduction.Execute();
+
+            BaseSymbol constant = symbolTable.Insert(SymbolKind.Constant, currentToken.StringRepresentation, type);
+
             Check(TokenEnum.ASSIGN);
             numberOrCharConstantProduction.Execute();
             Check(TokenEnum.SEMICOLON);

@@ -1,13 +1,13 @@
 ﻿namespace compi.basis.symbolTable
 {
     enum SymbolKind {
-        Const,
+        Constant,
         Global,
         Field,
-        Arg,
+        Argument,
         Local,
         Type,
-        Meth,
-        Prog
+        Method,
+        Program
     }
 }

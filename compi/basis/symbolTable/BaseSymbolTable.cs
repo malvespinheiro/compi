@@ -8,7 +8,7 @@
         public readonly BaseStruct stringType = new BaseStruct(StructKind.String);
         public readonly BaseStruct nullType = new BaseStruct(StructKind.Class);
 
-        public readonly BaseSymbol noSym = new BaseSymbol(SymbolKind.Const, "noBaseSymbol", new BaseStruct(StructKind.None));
+        public readonly BaseSymbol noSym = new BaseSymbol(SymbolKind.Constant, "noBaseSymbol", new BaseStruct(StructKind.None));
 
         private BaseScope topScope;
         internal BaseScope TopScope { get => topScope; set => topScope = value; }
@@ -22,31 +22,35 @@
 
         private void OpenUniversalScope()
         {
-            OpenScope(null);
+            OpenScope();
         }
 
         private void InitStandardTypes()
         {
             Insert(SymbolKind.Type, "int", intType);
             Insert(SymbolKind.Type, "char", charType);
-            Insert(SymbolKind.Const, "null", nullType);
+            Insert(SymbolKind.Constant, "null", nullType);
         }
 
         private void InitStandardMethods() { }
 
-        public void OpenScope(BaseSymbol sym)
+        public void OpenScope()
         {
             BaseScope s = new BaseScope
             {
-                nArgs = 0,
-                nLocs = 0,
+                numberOfArguments = 0,
+                numberOfLocals = 0,
                 outer = TopScope
             };
             TopScope = s;
         }
 
-        public void CloseScope()
+        public void CloseScope(ref BaseSymbol symbol)
         {
+            symbol.locals = TopScope.locals;
+            symbol.nArgs = TopScope.numberOfArguments;
+            symbol.nLocs = TopScope.numberOfLocals;
+
             TopScope = TopScope.outer;
         }
 
@@ -57,8 +61,8 @@
 
             switch (kind)
             {
-                case SymbolKind.Arg: symbol.adr = TopScope.nArgs++; break;
-                case SymbolKind.Local: symbol.adr = TopScope.nLocs++; break;
+                case SymbolKind.Argument: symbol.adr = TopScope.numberOfArguments++; break;
+                case SymbolKind.Local: symbol.adr = TopScope.numberOfLocals++; break;
             }
 
             BaseSymbol foundSymbol = FindFromBaseSymbol(symbol.name, TopScope.locals);

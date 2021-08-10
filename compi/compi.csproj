@@ -76,6 +76,8 @@
     <Compile Include="basis\symbolTable\StructKind.cs" />
     <Compile Include="basis\symbolTable\SymbolKind.cs" />
     <Compile Include="basis\symbolTable\BaseSymbol.cs" />
+    <Compile Include="zz\ParserViejoLimpio.cs" />
+    <Compile Include="zz\ParserViejo.cs" />
     <Compile Include="zz\grammar\productions\PossibleConditionTermProduction.cs" />
     <Compile Include="zz\grammar\productions\PossibleConditionFactorProduction.cs" />
     <Compile Include="zz\grammar\productions\RelationalOperatorProduction.cs" />
