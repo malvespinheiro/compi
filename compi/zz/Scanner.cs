@@ -329,54 +329,11 @@ namespace unsj.fcefn.compiladores.compi.zz
             }
             if (keywords.IsKeyword(token.StringRepresentation))
             {
-
-                switch (token.StringRepresentation)
-                {
-                    case "break":
-                        token.Kind = TokenEnum.BREAK;
-                        break;
-                    case "const":
-                        token.Kind = TokenEnum.CONST;
-                        break;
-                    case "else":
-                        token.Kind = TokenEnum.ELSE;
-                        break;
-                    case "if":
-                        token.Kind = TokenEnum.IF;
-                        break;
-                    case "new":
-                        token.Kind = TokenEnum.NEW;
-                        break;
-                    case "read":
-                        token.Kind = TokenEnum.READ;
-                        break;
-                    case "return":
-                        token.Kind = TokenEnum.RETURN;
-                        break;
-                    case "void":
-                        token.Kind = TokenEnum.VOID;
-                        break;
-                    case "while":
-                        token.Kind = TokenEnum.WHILE;
-                        break;
-                    case "write":
-                        token.Kind = TokenEnum.WRITE;
-                        break;
-                    case "writeln":
-                        token.Kind = TokenEnum.WRITELN;
-                        break;
-                }
+                token.Kind = keywords.GetKeyWordToken(token.StringRepresentation);
             }
             else
             {
-                if (token.StringRepresentation == "program")
-                {
-                    token.Kind = TokenEnum.PROGRAM;
-                }
-                else
-                {
-                    token.Kind = TokenEnum.IDENT;
-                }
+                token.Kind = TokenEnum.IDENT;
             }
         }
         private void ReadNumber(Token t)

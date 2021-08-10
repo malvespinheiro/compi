@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.basis.language
 {
@@ -11,6 +12,11 @@ namespace unsj.fcefn.compiladores.compi.basis.language
         public bool IsKeyword(string word)
         {
             return keywordsList.ContainsValue(word);
+        }
+
+        public TokenEnum GetKeyWordToken(string keyword)
+        {
+            return IsKeyword(keyword) ? (TokenEnum)keywordsList[keyword] : TokenEnum.NONE;
         }
     }
 }
