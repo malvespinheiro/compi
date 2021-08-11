@@ -2,7 +2,6 @@
 using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.interfaces;
 using unsj.fcefn.compiladores.compi.basis.language.token;
-using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
@@ -14,10 +13,10 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             : base(7, "VariableDeclaration", "TypedIdentifier PossibleIdentifiersCommaSeparated \";\"") { }
         public VariableDeclarationProduction Execute()
         {
-            //TODO: Obtener el type del typedIdentifier
-            //TODO: Obtener el kind como parametro de entrada
-            typedIdentifierProduction.Execute();
+            typedIdentifierProduction.Execute(out BaseStruct type);
+
             BaseSymbol variable = symbolTable.Insert(SymbolKind.Local, currentToken.StringRepresentation, type);
+
             possibleIdentifiersCommaSeparatedProduction.Execute();
             Check(TokenEnum.SEMICOLON);
             return this;

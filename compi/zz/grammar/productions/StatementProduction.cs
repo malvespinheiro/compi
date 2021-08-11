@@ -5,7 +5,7 @@ using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class StatementProduction : CompoundAndCheckedProduction<StatementProduction>, IExecutor<VariableDeclarationProduction>
+    class StatementProduction : CompoundAndCheckedProduction<StatementProduction>, IExecutor<StatementProduction>
     {
         private readonly RestOfStatementProduction restOfStatementProduction = new RestOfStatementProduction();
         private readonly ConditionProduction conditionProduction = new ConditionProduction();

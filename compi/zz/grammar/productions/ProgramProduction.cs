@@ -5,7 +5,7 @@ using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class ProgramProduction : CompoundProduction<ProgramProduction>, IExecutor<VariableDeclarationProduction>
+    class ProgramProduction : CompoundProduction<ProgramProduction>, IExecutor<ProgramProduction>
     {
         private readonly PossibleDeclarationProduction possibleDeclarationProduction = new PossibleDeclarationProduction();
         private readonly PossibleMethodDeclarationProduction possibleMethodDeclarationProduction = new PossibleMethodDeclarationProduction();

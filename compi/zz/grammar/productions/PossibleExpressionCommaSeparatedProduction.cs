@@ -5,7 +5,7 @@ using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PossibleExpressionCommaSeparatedProduction : CompoundProduction<PossibleExpressionCommaSeparatedProduction>, IExecutor<VariableDeclarationProduction>
+    class PossibleExpressionCommaSeparatedProduction : CompoundProduction<PossibleExpressionCommaSeparatedProduction>, IExecutor<PossibleExpressionCommaSeparatedProduction>
     {
         private readonly ExpressionProduction expressionProduction = new ExpressionProduction();
         public PossibleExpressionCommaSeparatedProduction()

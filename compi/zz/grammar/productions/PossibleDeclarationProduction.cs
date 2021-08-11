@@ -8,11 +8,11 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         private readonly DeclarationProduction declarationProduction = new DeclarationProduction();
         public PossibleDeclarationProduction()
             : base(1, "PossibleDeclaration", " . | Declaration  PossibleDeclaration") { }
-        public void InitProductions()
+        public override void InitProductions()
         {
             this.declarationProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
         }
-        public override PossibleDeclarationProduction Execute()
+        public PossibleDeclarationProduction Execute()
         {
             if (declarationProduction.ValidBegin(lookingAheadToken.Kind))
             {

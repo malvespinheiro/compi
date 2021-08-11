@@ -4,7 +4,7 @@ using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PossibleOperationTermProduction : CompoundProduction<PossibleOperationTermProduction>, IExecutor<VariableDeclarationProduction>
+    class PossibleOperationTermProduction : CompoundProduction<PossibleOperationTermProduction>, IExecutor<PossibleOperationTermProduction>
     {
         OperationTermProduction operationTermProduction = new OperationTermProduction();
         TermProduction termProduction = new TermProduction();
