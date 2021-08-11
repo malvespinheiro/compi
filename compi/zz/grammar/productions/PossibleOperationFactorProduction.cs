@@ -2,16 +2,17 @@
 using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PossibleOperationFactorProduction : CompoundProduction<PossibleOperationFactorProduction>
+    class PossibleOperationFactorProduction : CompoundProduction<PossibleOperationFactorProduction>, IExecutor<PossibleOperationFactorProduction>
     {
         OperationFactorProduction operationFactorProduction = new OperationFactorProduction();
         FactorProduction factorProduction = new FactorProduction();
         public PossibleOperationFactorProduction()
             : base(21, "PossibleOperationFactor", " . |  OperationFactor Factor") { }
-        public override PossibleOperationFactorProduction Execute()
+        public PossibleOperationFactorProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.TIMES || lookingAheadToken.Kind == TokenEnum.SLASH || lookingAheadToken.Kind != TokenEnum.REM)
             {

@@ -1,15 +1,16 @@
 ﻿using compi.basis.symbolTable;
 using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PossibleTypedIdentifiersCommaSeparatedProduction : CompoundProduction<PossibleTypedIdentifiersCommaSeparatedProduction>
+    class PossibleTypedIdentifiersCommaSeparatedProduction : CompoundProduction<PossibleTypedIdentifiersCommaSeparatedProduction>, IExecutor<PossibleTypedIdentifiersCommaSeparatedProduction>
     {
         private readonly TypedIdentifierProduction typedIdentifierProduction = new TypedIdentifierProduction();
         public PossibleTypedIdentifiersCommaSeparatedProduction()
             : base(13, "PossibleTypedIdentifiersCommaSeparated", " . |  \", \" TypedIdentifier PossibleTypedIdentifiersCommaSeparated") { }
-        public override PossibleTypedIdentifiersCommaSeparatedProduction Execute()
+        public PossibleTypedIdentifiersCommaSeparatedProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.COMMA)
             {

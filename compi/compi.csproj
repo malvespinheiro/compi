@@ -64,6 +64,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="basis\BaseParser.cs" />
+    <Compile Include="basis\exceptions\IdentifiersException.cs" />
+    <Compile Include="basis\exceptions\TypeCheckingException.cs" />
+    <Compile Include="basis\interfaces\Executor\IExecutorTyped.cs" />
+    <Compile Include="basis\interfaces\Executor\IExecutor.cs" />
     <Compile Include="basis\productions\CompoundAndCheckedProduction.cs" />
     <Compile Include="basis\productions\CheckedBeganProduction.cs" />
     <Compile Include="basis\productions\CompoundProduction.cs" />

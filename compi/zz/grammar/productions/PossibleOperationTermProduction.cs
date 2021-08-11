@@ -1,15 +1,16 @@
 ﻿using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PossibleOperationTermProduction : CompoundProduction<PossibleOperationTermProduction>
+    class PossibleOperationTermProduction : CompoundProduction<PossibleOperationTermProduction>, IExecutor<VariableDeclarationProduction>
     {
         OperationTermProduction operationTermProduction = new OperationTermProduction();
         TermProduction termProduction = new TermProduction();
         public PossibleOperationTermProduction()
             : base(21, "PossibleOperationTerm", " . | OperationTerm Term PossibleOperationTerm") { }
-        public override PossibleOperationTermProduction Execute()
+        public PossibleOperationTermProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.PLUS || lookingAheadToken.Kind == TokenEnum.MINUS)
             {

@@ -233,7 +233,6 @@ namespace unsj.fcefn.compiladores.compi.zz
                         }
                         else 
                         {
-
                             if (((currentCharacter < 'A') && (currentCharacter > 'Z')) ||
                                 ((currentCharacter < 'a') && (currentCharacter > 'z')) ||
                                 (currentCharacter != '\''))
@@ -247,7 +246,6 @@ namespace unsj.fcefn.compiladores.compi.zz
                             {
                                 errorHandler.ThrowScannerError(ErrorMessages.wrongCharacter + currentCharacter.ToString());
                             }
-
 
                             token.NumericalRepresentation = currentCharacter;
                             token.StringRepresentation = currentCharacter.ToString();
@@ -266,7 +264,7 @@ namespace unsj.fcefn.compiladores.compi.zz
                             NextCharacter();
                         }
                         token.StringRepresentation += "\"";
-                        token.Kind = TokenEnum.STRINGCONST;
+                        token.Kind = TokenEnum.STRINGCONSTANT;
                         break;
                     // -----------------------
                     //| comentarios           |

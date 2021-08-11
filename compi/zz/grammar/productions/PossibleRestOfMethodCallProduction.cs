@@ -1,14 +1,15 @@
 ﻿using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PossibleRestOfMethodCallProduction : CompoundProduction<PossibleRestOfMethodCallProduction>
+    class PossibleRestOfMethodCallProduction : CompoundProduction<PossibleRestOfMethodCallProduction>, IExecutor<PossibleRestOfMethodCallProduction>
     {
         PossibleParamsSendProduction possibleParamsSendProduction = new PossibleParamsSendProduction();
         public PossibleRestOfMethodCallProduction()
             : base(23, "PossibleRestOfMethodCall", " . |  \"(\" PossibleParamsSend \")\"") { }
-        public override PossibleRestOfMethodCallProduction Execute()
+        public PossibleRestOfMethodCallProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.LPAR)
             {

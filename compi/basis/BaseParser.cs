@@ -5,7 +5,7 @@ using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.basis
 {
-    class BaseParser<TProduction> : IParser<BaseParser<TProduction>>
+    class BaseParser<TProduction> : IParser<TProduction>
     {
         BaseProduction<TProduction> rootProduction;
 
@@ -14,10 +14,9 @@ namespace unsj.fcefn.compiladores.compi.basis
             this.rootProduction = rootProduction;
         }
 
-        public BaseParser<TProduction> Compile()
+        public TProduction Compile()
         {
-            rootProduction.Execute();
-            return this;
+            return rootProduction.Execute();
         }
 
         public BaseParser<TProduction> Init(BaseScanner scanner, BaseSymbolTable symbolTable, ErrorHandler errorHandler)

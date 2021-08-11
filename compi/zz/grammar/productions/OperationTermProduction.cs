@@ -2,14 +2,15 @@
 using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class OperationTermProduction : BaseProduction<OperationTermProduction>
+    class OperationTermProduction : BaseProduction<OperationTermProduction>, IExecutor<OperationTermProduction>
     {
         public OperationTermProduction()
             : base(28, "OperationTerm", "\"+\" | \"-\"") { }
-        public override OperationTermProduction Execute()
+        public OperationTermProduction Execute()
         {
             if (lookingAheadToken.Kind != TokenEnum.PLUS && lookingAheadToken.Kind != TokenEnum.MINUS)
             {

@@ -2,6 +2,7 @@
 using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
@@ -9,7 +10,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
     {
         public NumberOrCharConstantProduction()
             : base(6, "NumberOrCharConstant", "number | charConst") { }
-        public override NumberOrCharConstantProduction Execute()
+        public NumberOrCharConstantProduction Execute()
         {
             switch (lookingAheadToken.Kind)
             {

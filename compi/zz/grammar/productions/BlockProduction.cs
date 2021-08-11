@@ -1,16 +1,17 @@
 ﻿using compi.basis.symbolTable;
 using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.exceptions;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 using unsj.fcefn.compiladores.compi.basis.language.token;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class BlockProduction : CompoundProduction<BlockProduction>
+    class BlockProduction : CompoundProduction<BlockProduction>, IExecutor<BlockProduction>
     {
         private readonly PossibleStatementProduction possibleStatementProduction = new PossibleStatementProduction();
         public BlockProduction()
             : base(15, "Block", "\"{\"PossibleStatement\"}\"") { }
-        public override BlockProduction Execute()
+        public BlockProduction Execute()
         {
             Check(TokenEnum.LBRACE);
             possibleStatementProduction.Execute();

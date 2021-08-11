@@ -33,10 +33,10 @@
                 return false;
             switch (kind)
             {
-                case SymbolKind.Const: return val == sym.val;
-                case SymbolKind.Arg:
+                case SymbolKind.Constant: return val == sym.val;
+                case SymbolKind.Argument:
                 case SymbolKind.Local: return adr == sym.adr;
-                case SymbolKind.Meth: return nArgs == sym.nArgs && nLocs == sym.nLocs && EqualsCompleteList(Locals, sym.Locals);
+                case SymbolKind.Method: return nArgs == sym.nArgs && nLocs == sym.nLocs && EqualsCompleteList(locals, sym.locals);
             }
             return true;
         }

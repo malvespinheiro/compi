@@ -1,16 +1,18 @@
 ﻿using compi.basis.symbolTable;
 using unsj.fcefn.compiladores.compi.basis;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class VariableDeclarationProduction : CompoundAndCheckedProduction<VariableDeclarationProduction>
+    class VariableDeclarationProduction : CompoundAndCheckedProduction<VariableDeclarationProduction>, IExecutor<VariableDeclarationProduction>
     {
         private readonly TypedIdentifierProduction typedIdentifierProduction = new TypedIdentifierProduction();
         private readonly PossibleIdentifiersCommaSeparatedProduction possibleIdentifiersCommaSeparatedProduction = new PossibleIdentifiersCommaSeparatedProduction();
         public VariableDeclarationProduction()
             : base(7, "VariableDeclaration", "TypedIdentifier PossibleIdentifiersCommaSeparated \";\"") { }
-        public override VariableDeclarationProduction Execute()
+        public VariableDeclarationProduction Execute()
         {
             //TODO: Obtener el type del typedIdentifier
             //TODO: Obtener el kind como parametro de entrada

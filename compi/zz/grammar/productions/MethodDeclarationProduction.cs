@@ -1,10 +1,11 @@
 ﻿using compi.basis.symbolTable;
 using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class MethodDeclarationProduction : CompoundAndCheckedProduction<MethodDeclarationProduction>
+    class MethodDeclarationProduction : CompoundAndCheckedProduction<MethodDeclarationProduction>, IExecutor<MethodDeclarationProduction>
     {
         private readonly TypeOrVoidProduction typeOrVoidProduction = new TypeOrVoidProduction();
         private readonly ParamsDeclarationProduction paramsDeclarationProduction = new ParamsDeclarationProduction();
@@ -12,7 +13,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         private readonly BlockProduction blockProduction = new BlockProduction();
         public MethodDeclarationProduction()
             : base(10, "MethodDeclaration", "TypeOrVoid  ident \"(\" ParamsDeclaration \")\" PossibleVariableDeclaration Block") { }
-        public override MethodDeclarationProduction Execute()
+        public MethodDeclarationProduction Execute()
         {
 
             //TODO: Obtener el tipo del typeOrVoid

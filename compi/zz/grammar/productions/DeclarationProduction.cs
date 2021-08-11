@@ -1,10 +1,11 @@
 ﻿using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class DeclarationProduction : CompoundAndCheckedProduction<DeclarationProduction>
+    class DeclarationProduction : CompoundAndCheckedProduction<DeclarationProduction>, IExecutor<DeclarationProduction>
     {
         private readonly ConstantDeclarationProduction constantDeclarationProduction = new ConstantDeclarationProduction();
         private readonly VariableDeclarationProduction variableDeclarationProduction = new VariableDeclarationProduction();
@@ -16,7 +17,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             variableDeclarationProduction.Init(ref scanner, ref symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
 
         }
-        public override DeclarationProduction Execute()
+        public DeclarationProduction Execute()
         {
             switch (lookingAheadToken.Kind)
             {

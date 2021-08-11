@@ -1,15 +1,16 @@
 ﻿using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class TypeOrVoidProduction : CompoundAndCheckedProduction<TypeOrVoidProduction>
+    class TypeOrVoidProduction : CompoundAndCheckedProduction<TypeOrVoidProduction>, IExecutor<TypeOrVoidProduction>
     {
         private readonly TypeProduction typeProduction = new TypeProduction();
         public TypeOrVoidProduction()
             : base(11, "TypeOrVoid", "Type | \"void\"") { }
-        public override TypeOrVoidProduction Execute()
+        public TypeOrVoidProduction Execute()
         {
             switch (lookingAheadToken.Kind)
             {

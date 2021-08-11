@@ -2,15 +2,16 @@
 using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class StringOrExpressionProduction : CompoundProduction<StringOrExpressionProduction>
+    class StringOrExpressionProduction : CompoundProduction<StringOrExpressionProduction>, IExecutor<StringOrExpressionProduction>
     {
         ExpressionProduction expressionProduction = new ExpressionProduction();
         public StringOrExpressionProduction()
             : base(32, "StringOrExpression", "string | Expression") { }
-        public override StringOrExpressionProduction Execute()
+        public StringOrExpressionProduction Execute()
         {
             if (expressionProduction.ValidBegin(lookingAheadToken.Kind))
             {
@@ -18,7 +19,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             }
             else
             {
-                Check(TokenEnum.STRINGCONST);
+                Check(TokenEnum.STRINGCONSTANT);
             }
             return this;
         }

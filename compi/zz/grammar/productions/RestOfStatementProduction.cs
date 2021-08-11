@@ -2,16 +2,17 @@
 using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class RestOfStatementProduction : CompoundProduction<RestOfStatementProduction>
+    class RestOfStatementProduction : CompoundProduction<RestOfStatementProduction>, IExecutor<RestOfStatementProduction>
     {
         ExpressionProduction expressionProduction = new ExpressionProduction();
         PossibleParamsSendProduction possibleParamsSendProduction = new PossibleParamsSendProduction();
         public RestOfStatementProduction()
             : base(18, "RestOfStatement", "\" = \" Expression | \"(\" PossibleParamsSend \")\" | \"++\" | \"--\"") { }
-        public override RestOfStatementProduction Execute()
+        public RestOfStatementProduction Execute()
         {
             switch (lookingAheadToken.Kind)
             {

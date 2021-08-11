@@ -1,13 +1,14 @@
 ﻿using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class PossibleMinusProduction : CheckedBeganProduction<PossibleMinusProduction>
+    class PossibleMinusProduction : CheckedBeganProduction<PossibleMinusProduction>, IExecutor<PossibleMinusProduction>
     {
         public PossibleMinusProduction()
             : base(20, "PossibleMinus", "") { }
-        public override PossibleMinusProduction Execute()
+        public PossibleMinusProduction Execute()
         {
             if (lookingAheadToken.Kind == TokenEnum.MINUS)
             {

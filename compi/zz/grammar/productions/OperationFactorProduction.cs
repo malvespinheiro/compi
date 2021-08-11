@@ -2,6 +2,7 @@
 using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
@@ -10,7 +11,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         FactorProduction factorProduction = new FactorProduction();
         public OperationFactorProduction()
             : base(30, "OperationFactor", "\"*\" | \"/\" | \"%\"") { }
-        public override OperationFactorProduction Execute()
+        public OperationFactorProduction Execute()
         {
             if (lookingAheadToken.Kind != TokenEnum.TIMES && lookingAheadToken.Kind != TokenEnum.SLASH && lookingAheadToken.Kind != TokenEnum.REM)
             {

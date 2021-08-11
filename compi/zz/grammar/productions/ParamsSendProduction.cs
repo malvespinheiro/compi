@@ -1,16 +1,17 @@
 ﻿using compi.basis.symbolTable;
 using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class ParamsSendProduction : CompoundAndCheckedProduction<ParamsSendProduction>
+    class ParamsSendProduction : CompoundAndCheckedProduction<ParamsSendProduction>, IExecutor<ParamsSendProduction>
     {
         private readonly ExpressionProduction expressionProduction = new ExpressionProduction();
         private readonly PossibleExpressionCommaSeparatedProduction possibleExpressionCommaSeparatedProduction = new PossibleExpressionCommaSeparatedProduction();
         public ParamsSendProduction()
             : base(25, "ParamsSend", "Expression  PossibleExpressionCommaSeparated") { }
-        public override ParamsSendProduction Execute()
+        public ParamsSendProduction Execute()
         {
             expressionProduction.Execute();
             possibleExpressionCommaSeparatedProduction.Execute();

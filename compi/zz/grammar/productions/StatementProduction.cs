@@ -1,10 +1,11 @@
 ﻿using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class StatementProduction : CompoundAndCheckedProduction<StatementProduction>
+    class StatementProduction : CompoundAndCheckedProduction<StatementProduction>, IExecutor<VariableDeclarationProduction>
     {
         private readonly RestOfStatementProduction restOfStatementProduction = new RestOfStatementProduction();
         private readonly ConditionProduction conditionProduction = new ConditionProduction();
@@ -14,7 +15,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
         private readonly StringOrExpressionProduction stringOrExpressionProduction = new StringOrExpressionProduction();
         public StatementProduction()
             : base(17, "Statement", "ident RestOfStatement \";\" | \"if\" \"(\" Condition \")\" Statement ElseOpc | \"while\" \"(\" Condition \")\" Block | \"break\" \";\" | \"return\" [Expression] \";\" | \"read\" \"(\" ident \")\" \";\" | \"write\" \"(\" Expression[\",\" number] \")\" \";\" | Block | \";\"") { }
-        public override StatementProduction Execute()
+        public StatementProduction Execute()
         {
             switch (lookingAheadToken.Kind)
             {

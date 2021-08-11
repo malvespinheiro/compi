@@ -24,8 +24,6 @@ namespace unsj.fcefn.compiladores.compi.basis
         }
         public string Description { get => description; set => description = value; }
 
-        public abstract TProduction Execute();
-
         public virtual void Init(
             ref BaseScanner scanner, 
             ref BaseSymbolTable symbolTable, 

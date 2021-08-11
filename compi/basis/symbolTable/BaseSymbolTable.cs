@@ -1,4 +1,6 @@
-﻿namespace compi.basis.symbolTable
+﻿using unsj.fcefn.compiladores.compi.basis.exceptions;
+
+namespace compi.basis.symbolTable
 {
     class BaseSymbolTable
     {
@@ -8,16 +10,18 @@
         public readonly BaseStruct stringType = new BaseStruct(StructKind.String);
         public readonly BaseStruct nullType = new BaseStruct(StructKind.Class);
 
-        public readonly BaseSymbol noSym = new BaseSymbol(SymbolKind.Constant, "noBaseSymbol", new BaseStruct(StructKind.None));
+        public readonly BaseSymbol noSymbol = new BaseSymbol(SymbolKind.Constant, "noBaseSymbol", new BaseStruct(StructKind.None));
 
         private BaseScope topScope;
         internal BaseScope TopScope { get => topScope; set => topScope = value; }
 
-        public void Init()
+        private ErrorHandler errorHandler;
+
+        public void Init(ref ErrorHandler errorHandler)
         {
+            this.errorHandler = errorHandler;
             OpenUniversalScope();
             InitStandardTypes();
-            InitStandardMethods();
         }
 
         private void OpenUniversalScope()
@@ -29,10 +33,9 @@
         {
             Insert(SymbolKind.Type, "int", intType);
             Insert(SymbolKind.Type, "char", charType);
+            Insert(SymbolKind.Type, "string", stringType);
             Insert(SymbolKind.Constant, "null", nullType);
         }
-
-        private void InitStandardMethods() { }
 
         public void OpenScope()
         {
@@ -66,7 +69,7 @@
             }
 
             BaseSymbol foundSymbol = FindFromBaseSymbol(symbol.name, TopScope.locals);
-            if (foundSymbol.kind == noSym.kind)
+            if (foundSymbol.kind == noSymbol.kind)
             {
                 // TODO: El elemento ya esta declarado, registrar un error o lanzar exceptions
             }
@@ -94,12 +97,33 @@
         }
 
         public BaseSymbol Find(string name)
-        { 
-            for (BaseScope s = TopScope; s != null; s = s.outer)
-                for (BaseSymbol sym = s.locals; sym != null; sym = sym.next)
-                    if (sym.name == name)
-                        return sym;
-            return noSym;
+        {
+            BaseSymbol foundSymbol = noSymbol;
+            for (BaseScope scope = TopScope; scope != null && foundSymbol.type.kind == noSymbol.type.kind; scope = scope.outer)
+            {
+                for (BaseSymbol symbol = scope.locals; symbol != null && foundSymbol.type.kind == noSymbol.type.kind; symbol = symbol.next)
+                {
+                    if (symbol.name == name)
+                    {
+                        foundSymbol = symbol;
+                    }
+                }
+            }
+            if (foundSymbol.type.kind == noSymbol.type.kind)
+            {
+                errorHandler.ThrowIdentifierError(ErrorMessages.identifierNotFound);
+            }
+            return noSymbol;
+        }
+
+        public BaseSymbol FindType(string name)
+        {
+            BaseSymbol symbol = Find(name);
+            if(symbol.kind != SymbolKind.Type)
+            {
+                errorHandler.ThrowTypingError(ErrorMessages.typeNotFound);
+            }
+            return symbol;
         }
 
         public BaseSymbol FindFromBaseSymbol(string name, BaseSymbol baseSymbol)
@@ -107,7 +131,7 @@
             for (BaseSymbol sym = baseSymbol; sym != null; sym = sym.next)
                 if (sym.name == name)
                     return sym;
-            return noSym;
+            return noSymbol;
         }
 
         public bool IsValidConstantType(BaseStruct type) {

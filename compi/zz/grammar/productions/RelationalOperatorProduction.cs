@@ -1,14 +1,15 @@
 ﻿using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class RelationalOperatorProduction : BaseProduction<RelationalOperatorProduction>
+    class RelationalOperatorProduction : BaseProduction<RelationalOperatorProduction>, IExecutor<RelationalOperatorProduction>
     {
         public RelationalOperatorProduction()
             : base(38, "RelationalOperator", "\" == \" | \" != \" | \" > \" | \" >= \" | \" < \" | \" <= \"") { }
-        public override RelationalOperatorProduction Execute()
+        public RelationalOperatorProduction Execute()
         {
             switch (lookingAheadToken.Kind)
             {

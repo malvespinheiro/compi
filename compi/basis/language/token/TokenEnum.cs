@@ -6,7 +6,7 @@ namespace unsj.fcefn.compiladores.compi.basis.language.token
         IDENT,
         NUMBER,
         CHARCONST,
-        STRINGCONST,
+        STRINGCONSTANT,
         PLUS,
         MINUS,
         TIMES,

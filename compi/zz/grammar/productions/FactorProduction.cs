@@ -1,16 +1,17 @@
 ﻿using unsj.fcefn.compiladores.compi.basis;
 using unsj.fcefn.compiladores.compi.basis.exceptions;
 using unsj.fcefn.compiladores.compi.basis.language.token;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class FactorProduction : CompoundAndCheckedProduction<FactorProduction>
+    class FactorProduction : CompoundAndCheckedProduction<FactorProduction>, IExecutor<FactorProduction>
     {
         PossibleRestOfMethodCallProduction possibleRestOfMethodCallProduction = new PossibleRestOfMethodCallProduction();
         ExpressionProduction expressionProduction = new ExpressionProduction();
         public FactorProduction()
             : base(22, "Factor", "ident PossibleRestOfMethodCall | number | \"(\" Expression \")\"") { }
-        public override FactorProduction Execute()
+        public FactorProduction Execute()
         {
             switch (lookingAheadToken.Kind)
             {

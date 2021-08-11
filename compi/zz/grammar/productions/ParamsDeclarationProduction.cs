@@ -1,8 +1,9 @@
 ﻿using unsj.fcefn.compiladores.compi.basis;
+using unsj.fcefn.compiladores.compi.basis.interfaces;
 
 namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
 {
-    class ParamsDeclarationProduction : CompoundProduction<ParamsDeclarationProduction>
+    class ParamsDeclarationProduction : CompoundProduction<ParamsDeclarationProduction>, IExecutor<ParamsDeclarationProduction>
     {
         private readonly TypedIdentifierProduction typedIdentifierProduction= new TypedIdentifierProduction();
         private readonly PossibleTypedIdentifiersCommaSeparatedProduction possibleTypedIdentifiersCommaSeparatedProduction = new PossibleTypedIdentifiersCommaSeparatedProduction();
@@ -15,7 +16,7 @@ namespace unsj.fcefn.compiladores.compi.zz.grammar.productions
             possibleTypedIdentifiersCommaSeparatedProduction.Init(ref this.scanner, ref this.symbolTable, ref currentToken, ref lookingAheadToken, ref errorHandler);
 
         }
-        public override ParamsDeclarationProduction Execute()
+        public ParamsDeclarationProduction Execute()
         {
             if (typedIdentifierProduction.ValidBegin(lookingAheadToken.Kind))
             {

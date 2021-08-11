@@ -8,15 +8,17 @@ namespace unsj.fcefn.compiladores.compi.basis.exceptions
         {
             throw new ParserException(messasgeError);
         }
-
         public void ThrowScannerError(String messasgeError)
         {
             throw new ScannerException(messasgeError);
         }
-
-        internal void ThrowParserError(object invalidConstantType)
+        public void ThrowTypingError(String messasgeError)
         {
-            throw new NotImplementedException();
+            throw new TypeCheckingException(messasgeError);
+        }
+        public void ThrowIdentifierError(String messasgeError)
+        {
+            throw new IdentifiersException(messasgeError);
         }
     }
 }
